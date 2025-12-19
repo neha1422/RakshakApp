@@ -1,0 +1,116 @@
+{
+  "earthquake": {
+    "en": [
+      "During an earthquake: Drop, Cover, and Hold On.",
+      "If indoors: move away from windows, take cover under sturdy furniture, hold on until shaking stops.",
+      "If outdoors: move to an open area away from buildings, trees, streetlights.",
+      "After shaking: check for injuries, follow evacuation instructions, watch for aftershocks."
+    ],
+    "hi": [
+      "भूकंप के दौरान: नीचे झुकें, ढकें, और पकड़ें (Drop, Cover, Hold On)।",
+      "यदि अंदर हैं: खिड़कियों से दूर रहें, मजबूत फर्नीचर के नीचे सुरक्षित रहें।",
+      "यदि बाहर हैं: खुली जगह पर जाएँ, इमारतों और पेड़ों से दूर रहें।",
+      "झटकों के बाद: चोटों की जाँच करें, बचाव निर्देशों का पालन करें।"
+    ],
+    "pa": [
+      "ਭੂਚਾਲ ਦੌਰਾਨ: ਨੀਵੇਂ ਹੋਵੋ, ਢੱਕੋ ਅਤੇ ਫੜੋ (Drop, Cover, Hold On).",
+      "ਜੇ ਅੰਦਰ ਹੋ: ਕੰਮਰੇ ਦੇ ਦਰਵਾਜ਼ਿਆਂ/ਖਿੜਕੀਆਂ ਤੋਂ ਦੂਰ ਰਹੋ, ਮਜ਼ਬੂਤ ਫਰਨੀਚਰ ਹੇਠਾਂ ਢੱਕ ਜਾਓ।",
+      "ਬਾਹਰ ਹੋਵੋ ਤਾਂ ਖੁੱਲ੍ਹੀ ਜਗ੍ਹਾ ਵੱਲ ਜਾਓ, ਇਮਾਰਤਾਂ ਤੋਂ ਦੂਰ ਰਹੋ।",
+      "ਝਟਕਿਆਂ ਤੋ ਬਾਅਦ: ਚੋਟਾਂ ਦੀ ਜਾਂਚ ਕਰੋ, ਬਾਅਦ ਦੀਆਂ ਹਿਲਜੁਲ ਤੋਂ ਸੁਰੱਖਿਅਤ ਰਹੋ।"
+    ]
+  },
+  "fire": {
+    "en": [
+      "If you see fire or smell smoke: raise the alarm and call local emergency number.",
+      "Evacuate quickly using the nearest safe exit; do not use elevators.",
+      "Stay low to avoid smoke inhalation. Stop, drop, and roll if clothes catch fire."
+    ],
+    "hi": [
+      "अगर आग दिखे या धुआँ महकें: अलार्म बजाएँ और आपातकालीन नंबर पर कॉल करें।",
+      "निकास मार्ग से जल्दी निकलें; लिफ्ट का उपयोग न करें।",
+      "धुएँ से बचने के लिए नीचे रहें। कपड़े जलने पर रुकें, झुकें और लुढ़कें।"
+    ],
+    "pa": [
+      "ਜੇ ਅੱਗ ਵੇਖੋ ਜਾਂ ਧੂੰਆਂ ਮਹਿਕੇ: ਅਲਾਰਮ ਬਜਾਓ ਅਤੇ ਐਮਰਜੰਸੀ ਨੰਬਰ 'ਤੇ ਕਾਲ ਕਰੋ।",
+      "ਛੇਤੀ ਬਾਹਰ ਨਿਕਲੋ; ਲਿਫਟ ਨਾ ਵਰਤੋ।",
+      "ਧੂੰਏ ਤੋਂ ਬਚਣ ਲਈ ਨੀਵੇਂ ਰਹੋ; ਕਪੜੇ ਜਲਣ ਤੇ ਰੁਕੋ-ਝੁੱਕੋ-ਲੁੜਕੋ।"
+    ]
+  },
+  "flood": {
+    "en": [
+      "Move to higher ground and avoid walking or driving through flood waters.",
+      "Switch off electricity if safe to do so.",
+      "Keep emergency kit and important documents in a waterproof bag."
+    ],
+    "hi": [
+      "ऊँचे स्थान पर जाएँ और बाढ़ के पानी में चलना/गाड़ी चलाना न करें।",
+      "यदि सुरक्षित हो तो बिजली बंद कर दें।",
+      "आपातकालीन किट और दस्तावेज़ वाटरप्रूफ बैग में रखें।"
+    ],
+    "pa": [
+      "ਉੱਚੀ ਜਗ੍ਹਾ ਵੱਲ ਚਲੋ ਅਤੇ ਬਾਹ ਦੀਆਂ ਲਹਿਰਾਂ ਵਿੱਚ ਨਾ ਚਲੋ।",
+      "ਜੇ ਸੁਰੱਖਿਅਤ ਹੋਵੇ ਤਾਂ ਬਿਜਲੀ ਬੰਦ ਕਰੋ।",
+      "ਇਮਰਜੰਸੀ ਕਿੱਟ ਅਤੇ ਦਸਤਾਵੇਜ਼ ਵਾਟਰਪ੍ਰੂਫ ਬੈਗ ਵਿੱਚ ਰੱਖੋ।"
+    ]
+  },
+  "industrial": {
+    "en": [
+      "If you are near an industrial incident: follow the factory/school emergency plan.",
+      "Move upwind and away from the affected area; close doors and windows.",
+      "Report to emergency response teams and follow instructions."
+    ],
+    "hi": [
+      "औद्योगिक घटना के पास हों: फैक्टरी/स्कूल की आपात योजना का पालन करें।",
+      "प्रभावित क्षेत्र से दूर और हवा के विपरीत दिशा में जाएँ; दरवाजे और खिड़कियाँ बंद करें।"
+    ],
+    "pa": [
+      "ਉਦਯੋਗਿਕ ਘਟਨਾ 'ਤੇ: ਫੈਕਟਰੀ/ਸਕੂਲ ਦੀ ਐਮਰਜੰਸੀ ਯੋਜਨਾ ਨੂੰ ਫੋਲੋ ਕਰੋ।",
+      "ਪ੍ਰਭਾਵਤ ਥਾਂ ਤੋਂ ਦੂਰ ਅਤੇ ਹਵਾਵੇਂ-ਉਪਰ ਰਹੋ; ਦਰਵਾਜ਼ੇ-ਖਿੜਕੀਆਂ ਬੰਦ ਕਰੋ।"
+    ]
+  },
+  "heatwave": {
+    "en": [
+      "Stay hydrated, avoid direct sunlight during peak hours, and check on vulnerable people.",
+      "Use cooling measures and move to cooler places if feeling dizzy."
+    ],
+    "hi": [
+      "हाइड्रेटेड रहें, तेज़ धूप से बचें, कमजोर लोगों की जाँच करें।"
+    ],
+    "pa": [
+      "ਪਾਣੀ ਪੀਓ, ਧੁੱਪ ਤੋਂ ਬਚੋ ਅਤੇ ਲੋੜਵੰਦਾਂ ਦੀ ਪਰਖ ਕਰੋ।"
+    ]
+  },
+  "coldwave": {
+    "en": [
+      "Keep warm, avoid prolonged exposure to cold, and check heaters for safety."
+    ],
+    "hi": [
+      "गर्म रहें, ठंड में लंबा exposure न लें, हीटर सुरक्षित रखें।"
+    ],
+    "pa": [
+      "ਗਰਮ ਰਹੋ, ਲੰਬਾ ਸਮਾਂ ਠੰਢ 'ਚ ਨਾ ਬਤਾਉ, ਹੀਟਰ ਦੀ ਜਾਂਚ ਕਰੋ।"
+    ]
+  },
+  "landslide": {
+    "en": [
+      "Move away from slopes, listen to local alerts, and do not approach the landslide area."
+    ],
+    "hi": [
+      "ढलानों से दूर रहें, स्थानीय सूचनाओं का पालन करें।"
+    ],
+    "pa": [
+      "ਧਲਾਨਾਂ ਤੋਂ ਦੂਰ ਰਹੋ, ਸਥਾਨਕ ਸੂਚਨਾਵਾਂ ਨੂੰ ਸੁਣੋ।"
+    ]
+  },
+  "pandemic": {
+    "en": [
+      "Follow public health guidelines: mask when needed, isolate if symptomatic, and keep vaccinations up to date."
+    ],
+    "hi": [
+      "सार्वजनिक स्वास्थ्य दिशा-निर्देशों का पालन करें: ज़रूरत पर मास्क, लक्षण होने पर अलग रहें।"
+    ],
+    "pa": [
+      "ਜਨਤਕ ਸਿਹਤ ਦਿਸ਼ਾ-ਨਿਰਦੇਸ਼ ਫੋਲੋ ਕਰੋ: ਲੋੜ ਹੋਣ 'ਤੇ ਮਾਸਕ ਪਾਓ।"
+    ]
+  }
+}

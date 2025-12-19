@@ -1,0 +1,50 @@
+{
+  "dashboard": {
+    "quickEmergencyAccess": "त्वरित आपातकालीन पहुंच",
+    "emergencySOS": "आपातकालीन SOS",
+    "emergencyContacts": "आपातकालीन संपर्क",
+    "safetyGuidelines": "सुरक्षा दिशानिर्देश",
+    "voiceAssistant": "वॉयस असिस्टेंट"
+  },
+
+
+
+  "emergency": {
+    "contactsTitle": "आपातकालीन संपर्क",
+    "call": "कॉल करें",
+    "tapToCall": "तुरंत कॉल करने के लिए किसी भी नंबर पर टैप करें",
+    "voiceAssistant": "आपातकालीन वॉयस असिस्टेंट",
+    "language": "भाषा",
+    "listening": "🎤 आपातकाल के लिए सुन रहा हूं...",
+    "tapToSpeak": "बोलने के लिए माइक्रोफोन टैप करें",
+    "currentLanguage": "वर्तमान भाषा",
+    "heard": "सुना गया",
+    "repeatInstructions": "निर्देश दोहराएं",
+    "trySaying": "इस आपातकालीन कमांड को कहने का प्रयास करें",
+    "flashlight": "फ्लैशलाइट",
+    "siren": "सायरन",
+    "on": "चालू",
+    "off": "बंद",
+    "closeAll": "सभी आपातकालीन सुविधाएं बंद करें",
+    "backToDashboard": "डैशबोर्ड पर वापस जाएं",
+    "activeFeatures": "आपातकालीन सुविधाएं सक्रिय हैं - उन्हें बंद करना न भूलें",
+    "sosAlert": "आपातकालीन SOS सक्रिय",
+    "sosMessage": "आपातकालीन सेवाओं को आपके स्थान के साथ सचेत किया गया है",
+    "locationStatus": "स्थान स्थिति",
+    "locationShared": "स्थान आपातकालीन सेवाओं के साथ साझा किया गया",
+    "locationError": "स्थान प्राप्त करने में असमर्थ",
+    "gettingLocation": "आपका स्थान प्राप्त कर रहा है...",
+    "closeAlert": "अलर्ट बंद करें",
+    "emergencyServicesAlerted": "आपातकालीन सेवाएं सचेत",
+    "yourLocation": "आपका वर्तमान स्थान आपातकालीन प्रतिक्रियाकर्ताओं को भेज दिया गया है",
+    "latitude": "अक्षांश",
+    "longitude": "देशांतर",
+    "accuracy": "सटीकता",
+    "meters": "मीटर"
+  },
+  "languages": {
+    "english": "अंग्रेजी",
+    "hindi": "हिंदी",
+    "punjabi": "पंजाबी"
+  }
+}

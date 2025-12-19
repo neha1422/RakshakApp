@@ -1,0 +1,47 @@
+{
+  "dashboard": {
+    "quickEmergencyAccess": "Quick Emergency Access",
+    "emergencySOS": "Emergency SOS",
+    "emergencyContacts": "Emergency Contacts",
+    "safetyGuidelines": "Safety Guidelines",
+    "voiceAssistant": "Voice Assistant"
+  },
+  "emergency": {
+    "contactsTitle": "Emergency Contacts",
+    "call": "Call",
+    "tapToCall": "Tap any number to call immediately",
+    "voiceAssistant": "Emergency Voice Assistant",
+    "language": "Language",
+    "listening": "🎤 Listening for emergency...",
+    "tapToSpeak": "Tap microphone to speak",
+    "currentLanguage": "Current language",
+    "heard": "Heard",
+    "repeatInstructions": "Repeat Instructions",
+    "trySaying": "Try saying these emergency commands",
+    "flashlight": "Flashlight",
+    "siren": "Siren",
+    "on": "ON",
+    "off": "OFF",
+    "closeAll": "Close all emergency features",
+    "backToDashboard": "Back to Dashboard",
+    "activeFeatures": "Emergency features active - remember to turn them off",
+    "sosAlert": "EMERGENCY SOS ACTIVATED",
+    "sosMessage": "Emergency services have been alerted with your location",
+    "locationStatus": "Location Status",
+    "locationShared": "Location shared with emergency services",
+    "locationError": "Unable to get location",
+    "gettingLocation": "Getting your location...",
+    "closeAlert": "Close Alert",
+    "emergencyServicesAlerted": "Emergency Services Alerted",
+    "yourLocation": "Your current location has been sent to emergency responders",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "accuracy": "Accuracy",
+    "meters": "meters"
+  },
+  "languages": {
+    "english": "English",
+    "hindi": "Hindi",
+    "punjabi": "Punjabi"
+  }
+}

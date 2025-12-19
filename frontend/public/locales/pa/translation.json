@@ -1,0 +1,47 @@
+{
+  "dashboard": {
+    "quickEmergencyAccess": "ਤੁਰੰਤ ਐਮਰਜੈਂਸੀ ਪਹੁੰਚ",
+    "emergencySOS": "ਐਮਰਜੈਂਸੀ SOS",
+    "emergencyContacts": "ਐਮਰਜੈਂਸੀ ਸੰਪਰਕ",
+    "safetyGuidelines": "ਸੁਰੱਖਿਆ ਦਿਸ਼ਾ-ਨਿਰਦੇਸ਼",
+    "voiceAssistant": "ਵੌਇਸ ਅਸਿਸਟੈਂਟ"
+  },
+  "emergency": {
+    "contactsTitle": "ਐਮਰਜੈਂਸੀ ਸੰਪਰਕ",
+    "call": "ਕਾਲ ਕਰੋ",
+    "tapToCall": "ਤੁਰੰਤ ਕਾਲ ਕਰਨ ਲਈ ਕਿਸੇ ਵੀ ਨੰਬਰ ਨੂੰ ਟੈਪ ਕਰੋ",
+    "voiceAssistant": "ਐਮਰਜੈਂਸੀ ਵੌਇਸ ਅਸਿਸਟੈਂਟ",
+    "language": "ਭਾਸ਼ਾ",
+    "listening": "🎤 ਐਮਰਜੈਂਸੀ ਲਈ ਸੁਣ ਰਿਹਾ ਹਾਂ...",
+    "tapToSpeak": "ਬੋਲਣ ਲਈ ਮਾਈਕ੍ਰੋਫੋਨ ਟੈਪ ਕਰੋ",
+    "currentLanguage": "ਮੌਜੂਦਾ ਭਾਸ਼ਾ",
+    "heard": "ਸੁਣਿਆ ਗਿਆ",
+    "repeatInstructions": "ਨਿਰਦੇਸ਼ ਦੁਹਰਾਓ",
+    "trySaying": "ਇਹਨਾਂ ਐਮਰਜੈਂਸੀ ਕਮਾਂਡਾਂ ਨੂੰ ਕਹਿਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+    "flashlight": "ਫਲੈਸ਼ਲਾਈਟ",
+    "siren": "ਸਾਇਰਨ",
+    "on": "ਚਾਲੂ",
+    "off": "ਬੰਦ",
+    "closeAll": "ਸਾਰੀਆਂ ਐਮਰਜੈਂਸੀ ਫੀਚਰਾਂ ਬੰਦ ਕਰੋ",
+    "backToDashboard": "ਡੈਸ਼ਬੋਰਡ 'ਤੇ ਵਾਪਸ ਜਾਓ",
+    "activeFeatures": "ਐਮਰਜੈਂਸੀ ਫੀਚਰ ਸਰਗਰਮ ਹਨ - ਉਨ੍ਹਾਂ ਨੂੰ ਬੰਦ ਕਰਨਾ ਯਾਦ ਰੱਖੋ",
+    "sosAlert": "ਐਮਰਜੈਂਸੀ SOS ਸਰਗਰਮ",
+    "sosMessage": "ਤੁਹਾਡੇ ਟਿਕਾਣੇ ਨਾਲ ਐਮਰਜੈਂਸੀ ਸਰਵਿਸਾਂ ਨੂੰ ਸੂਚਿਤ ਕੀਤਾ ਗਿਆ ਹੈ",
+    "locationStatus": "ਟਿਕਾਣਾ ਸਥਿਤੀ",
+    "locationShared": "ਟਿਕਾਣਾ ਐਮਰਜੈਂਸੀ ਸਰਵਿਸਾਂ ਨਾਲ ਸਾਂਝਾ ਕੀਤਾ ਗਿਆ",
+    "locationError": "ਟਿਕਾਣਾ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ",
+    "gettingLocation": "ਤੁਹਾਡਾ ਟਿਕਾਣਾ ਪ੍ਰਾਪਤ ਕਰ ਰਿਹਾ ਹੈ...",
+    "closeAlert": "ਅਲਰਟ ਬੰਦ ਕਰੋ",
+    "emergencyServicesAlerted": "ਐਮਰਜੈਂਸੀ ਸਰਵਿਸਾਂ ਨੂੰ ਸੂਚਿਤ ਕੀਤਾ ਗਿਆ",
+    "yourLocation": "ਤੁਹਾਡਾ ਵਰਤਮਾਨ ਟਿਕਾਣਾ ਐਮਰਜੈਂਸੀ ਪ੍ਰਤੀਕਿਰਿਆਕਰਤਾਵਾਂ ਨੂੰ ਭੇਜ ਦਿੱਤਾ ਗਿਆ ਹੈ",
+    "latitude": "ਅਕਸ਼ਾਂਸ਼",
+    "longitude": "ਦੇਸ਼ਾਂਤਰ",
+    "accuracy": "ਸ਼ੁੱਧਤਾ",
+    "meters": "ਮੀਟਰ"
+  },
+  "languages": {
+    "english": "ਅੰਗਰੇਜ਼ੀ",
+    "hindi": "ਹਿੰਦੀ",
+    "punjabi": "ਪੰਜਾਬੀ"
+  }
+}

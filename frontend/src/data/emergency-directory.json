@@ -1,0 +1,45 @@
+{
+  "earthquake": {
+    "contacts": [
+      { "name": "State Emergency Control", "phone": "108" },
+      { "name": "Local Hospital", "phone": "0161-1234567" }
+    ]
+  },
+  "fire": {
+    "contacts": [
+      { "name": "Fire Brigade", "phone": "101" },
+      { "name": "Local Fire Unit", "phone": "0161-7654321" }
+    ]
+  },
+  "flood": {
+    "contacts": [
+      { "name": "Flood Control", "phone": "1070" },
+      { "name": "District Collector Office", "phone": "0161-5555555" }
+    ]
+  },
+  "industrial": {
+    "contacts": [
+      { "name": "Industrial Emergency", "phone": "1800-INDUSTRY" }
+    ]
+  },
+  "heatwave": {
+    "contacts": [
+      { "name": "Health Helpline", "phone": "104" }
+    ]
+  },
+  "coldwave": {
+    "contacts": [
+      { "name": "Health Helpline", "phone": "104" }
+    ]
+  },
+  "landslide": {
+    "contacts": [
+      { "name": "Disaster Management", "phone": "1077" }
+    ]
+  },
+  "pandemic": {
+    "contacts": [
+      { "name": "Public Health", "phone": "1075" }
+    ]
+  }
+}
