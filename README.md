@@ -4,7 +4,8 @@
 
 **React • Node.js • PostgreSQL • Firebase • OpenAI • Leaflet • Google Maps • Twilio**
 
-🌐 **Live Demo** • 💻 **GitHub** • 📖 **Architecture**
+🌐 **Live Demo** https://rakshakapp.vercel.app/ 
+• 💻 **GitHub** • 📖 **Architecture**
 
 ---
 
