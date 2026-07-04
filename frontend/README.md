@@ -1,109 +1,152 @@
-# RakshakApp - Punjab Disaster Preparedness Platform
+# 🚨 RakshakApp
 
-A comprehensive disaster preparedness platform designed specifically for schools and colleges in Punjab. This application provides interactive maps, gamified learning experiences, virtual drills, and emergency response tools to help educational institutions prepare for various disaster scenarios.
+### AI-Powered Disaster Preparedness Platform
 
-## Features
+**React • TypeScript • Node.js • PostgreSQL • Firebase • OpenAI • Leaflet • Google Maps • Twilio**
 
-- **Interactive Disaster Maps**: Visual representation of disaster-prone areas and evacuation routes
-- **Gamified Learning**: Points, badges, and achievements to motivate students and staff
-- **Virtual Drills**: Simulated emergency scenarios for practice and training
-- **Emergency Tools**: Quick access to emergency contacts and procedures
-- **Progress Tracking**: Monitor learning progress and drill completion rates
-- **Multi-language Support**: Available in Punjabi and English
+🌐 **Live Demo:** https://rakshakapp.vercel.app/
 
-## Technologies Used
+---
 
-This project is built with modern web technologies:
+## 🌟 Overview
 
-- **Vite** - Fast build tool and development server
-- **TypeScript** - Type-safe JavaScript development
-- **React 18** - Modern UI library with hooks and concurrent features
-- **React Router** - Client-side routing
-- **shadcn/ui** - Beautiful, accessible component library
-- **Tailwind CSS** - Utility-first CSS framework
-- **Radix UI** - Unstyled, accessible UI primitives
-- **Lucide React** - Beautiful icon library
-- **React Hook Form** - Performant forms with easy validation
-- **Zod** - TypeScript-first schema validation
-- **TanStack Query** - Powerful data synchronization for React
+RakshakApp is an AI-powered disaster preparedness platform developed to improve emergency readiness across educational institutions. The platform combines **real-time emergency response**, **GIS-based disaster visualization**, **AI-powered assistance**, and **interactive learning** into a unified digital ecosystem.
 
-## Getting Started
+Designed for students, educators, and administrators, RakshakApp enables institutions to conduct virtual drills, monitor preparedness, and respond efficiently during emergencies.
 
-### Prerequisites
+---
 
-- Node.js (version 18 or higher)
-- npm or yarn package manager
+# 🚀 Core Features
 
-### Installation
+### 🤖 AI Disaster Assistant
+- Context-aware disaster guidance
+- Multilingual voice interaction
+- AI-powered emergency recommendations
 
-1. **Clone the repository**
-   ```bash
-   git clone <YOUR_REPO_URL>
-   cd punjab-prepared-ecosystem/frontend
-   ```
+### 🚨 Emergency Response
+- One-click SOS activation
+- Live GPS location tracking
+- Emergency SMS notifications
+- Secure emergency contact management
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+### 🗺️ GIS Risk Intelligence
+- Punjab district-wise disaster visualization
+- Interactive flood-risk mapping
+- Government water-level data integration
+- Real-time location services
 
-3. **Start the development server**
-   ```bash
-   npm run dev
-   ```
+### 📚 Learning Platform
+- Gamified disaster preparedness modules
+- Interactive quizzes
+- Progress tracking
+- Achievement badges & leaderboards
 
-4. **Open your browser**
-   Navigate to `http://localhost:8080` to view the application.
+### 👨‍💼 Administration Portal
+- Student progress monitoring
+- Mass emergency alerts
+- Analytics dashboard
+- Compliance reports
 
-### Available Scripts
+---
 
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build the application for production
-- `npm run build:dev` - Build in development mode
-- `npm run preview` - Preview the production build locally
-- `npm run lint` - Run ESLint for code quality checks
+# 🏗️ System Architecture
+<img width="1024" height="508" alt="image" src="https://github.com/user-attachments/assets/aa5fa888-bdaf-4c54-aa57-574ef1d06423" />
 
-## Project Structure
 
-```
-src/
-├── components/          # Reusable UI components
-│   ├── ui/             # shadcn/ui components
-│   ├── features-section.tsx
-│   ├── hero-section.tsx
-│   ├── navigation.tsx
-│   └── sidebar.tsx
-├── pages/              # Main application pages
-│   ├── Auth.tsx
-│   ├── Dashboard.tsx
-│   ├── Index.tsx
-│   └── NotFound.tsx
-├── hooks/              # Custom React hooks
-├── lib/                # Utility functions
-└── assets/             # Static assets
+---
+
+# 🔄 Emergency Response Workflow
+
+```text
+SOS Activated
+      │
+      ▼
+Capture Live GPS
+      │
+      ▼
+Backend Validation
+      │
+      ▼
+Twilio SMS Alerts
+      │
+      ▼
+Emergency Contacts
+      │
+      ▼
+Dashboard Update
+      │
+      ▼
+User Confirmation
 ```
 
-## Contributing
+---
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+# ⚙️ Technology Stack
 
-## Deployment
+| Layer | Technologies |
+|-------|--------------|
+| Frontend | React, TypeScript, Vite, Tailwind CSS |
+| Backend | Node.js, Express.js |
+| Database | PostgreSQL |
+| Authentication | Firebase Authentication |
+| AI | OpenAI, Whisper, Google Text-to-Speech |
+| GIS | Leaflet.js, Mapbox, Google Maps API |
+| Communication | Twilio |
+| Validation | Zod, React Hook Form |
 
-The application can be deployed to any static hosting service:
+---
 
-- **Vercel**: `npm run build` and deploy the `dist` folder
-- **Netlify**: Connect your repository and use `npm run build` as build command
-- **GitHub Pages**: Use GitHub Actions to build and deploy
-- **AWS S3**: Upload the `dist` folder contents to an S3 bucket
+# 📂 Project Structure
 
-## License
+```text
+RakshakApp
+│
+├── frontend/
+│   ├── components/
+│   ├── pages/
+│   ├── hooks/
+│   ├── assets/
+│   └── lib/
+│
+├── backend/
+│
+├── database/
+│
+└── documentation/
+```
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+---
 
-## Support
+# 🚀 Local Setup
 
-For support and questions, please contact the RakshakApp team or create an issue in this repository.
+```bash
+git clone https://github.com/neha1422/RakshakApp.git
+
+cd RakshakApp
+
+npm install
+
+npm run dev
+```
+
+---
+
+# 🏆 Recognition
+
+🥈 **Runner-Up**, SemiXthon 2026 at the **Vinod Dham Center** among **400+ participants**
+
+🥈 **2nd Place**, **4th IoT Research Showcase**
+
+---
+
+# 🔮 Future Enhancements
+
+- AR-based disaster drills
+- IoT-enabled hazard detection
+- Predictive disaster analytics
+- Cloud-native deployment
+- Mobile application support
+
+---
+
+## ⭐ RakshakApp demonstrates the integration of Artificial Intelligence, GIS, cloud services, and real-time communication to build a scalable disaster preparedness solution for educational institutions.
