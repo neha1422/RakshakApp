@@ -1,3 +1,6 @@
+import { useAuth } from '@/context/AuthContext';
+import { create } from '@/lib/cloud';
+import { toast } from 'sonner';
 import React, { useEffect, useRef } from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -5,14 +8,20 @@ import { useNavigate } from "react-router-dom";
 const GamePage: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { schoolId } = useAuth();
 
   useEffect(() => {
+    let cancelled = false;
+    let instance: { destroy: () => void } | undefined;
     const loadGame = async () => {
       const { initGame } = await import("../game/main.js");
-      if (containerRef.current) initGame(containerRef.current);
+      if (!cancelled && containerRef.current) instance = initGame(containerRef.current, result => {
+        if (schoolId) void create("gameProgress", schoolId, { ...result, gameId: "disaster-quest", badge: result.score === result.total ? "safety-star" : "completed" }).catch(e => toast.error(e.message));
+      });
     };
-    loadGame();
-  }, []);
+    void loadGame().catch(e => toast.error(e.message));
+    return () => { cancelled = true; instance?.destroy(); };
+  }, [schoolId]);
 
   return (
     <div className="relative min-h-screen bg-black flex flex-col">
@@ -37,9 +46,9 @@ const GamePage: React.FC = () => {
     <div
       ref={containerRef}
       style={{
-        width: "1024px",
-        height: "768px",
-        transform: "translate(+130px,+40px)",// shift left or right
+        width: "min(100%, 1024px)",
+        minHeight: "600px",
+        overflowX: "auto",// shift left or right
       }}
     />
   </div>

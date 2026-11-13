@@ -5,7 +5,6 @@ export type Language = "en" | "hi" | "pa";
 export interface QuizQuestion {
   question: Record<Language, string>;
   options: Record<Language, string[]>;
-  answerIndex: number;
 }
 
 export interface DisasterModule {
@@ -140,7 +139,7 @@ Remember: Stay calm, stay informed, and always prioritize safety.`,
           hi: ["पानी में चलना", "ऊँचे स्थान पर जाना", "घर में रहना", "दोस्त को कॉल करना"],
           pa: ["ਪਾਣੀ ਵਿੱਚ ਤੁਰਨਾ", "ਉੱਚੀ ਥਾਂ ਤੇ ਜਾਣਾ", "ਘਰ ਵਿੱਚ ਰਹਿਣਾ", "ਦੋਸਤ ਨੂੰ ਕਾਲ ਕਰਨਾ"],
         },
-        answerIndex: 1,
+
       },
       {
         question: {
@@ -153,7 +152,7 @@ Remember: Stay calm, stay informed, and always prioritize safety.`,
           hi: ["पैसे बचाने के लिए", "करंट से बचने के लिए", "बैटरी बचाने के लिए", "मज़े के लिए"],
           pa: ["ਪੈਸੇ ਬਚਾਉਣ ਲਈ", "ਕਰੰਟ ਤੋਂ ਬਚਣ ਲਈ", "ਬੈਟਰੀ ਬਚਾਉਣ ਲਈ", "ਮਜ਼ੇ ਲਈ"],
         },
-        answerIndex: 1,
+
       },
       {
         question: {
@@ -166,7 +165,7 @@ Remember: Stay calm, stay informed, and always prioritize safety.`,
           hi: ["खेल", "दवाइयाँ", "टीवी रिमोट", "पेंट"],
           pa: ["ਖੇਡਾਂ", "ਦਵਾਈਆਂ", "ਟੀਵੀ ਰਿਮੋਟ", "ਪੇਂਟ"],
         },
-        answerIndex: 1,
+
       },
       {
         question: {
@@ -179,7 +178,7 @@ Remember: Stay calm, stay informed, and always prioritize safety.`,
           hi: ["पानी में गाड़ी चलाना", "दूसरों की मदद करना", "समाचार सुनना", "भोजन संग्रह करना"],
           pa: ["ਪਾਣੀ ਵਿੱਚ ਗੱਡੀ ਚਲਾਉਣਾ", "ਹੋਰਾਂ ਦੀ ਮਦਦ ਕਰਨਾ", "ਖਬਰਾਂ ਸੁਣਨਾ", "ਭੋਜਨ ਇਕੱਠਾ ਕਰਨਾ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -192,7 +191,7 @@ Remember: Stay calm, stay informed, and always prioritize safety.`,
           hi: ["छत पर चढ़ना", "मदद बुलाना", "पानी में तैरना", "नज़रअंदाज़ करना"],
           pa: ["ਛੱਤ ਤੇ ਚੜ੍ਹਣਾ", "ਮਦਦ ਬੁਲਾਣਾ", "ਪਾਣੀ ਵਿੱਚ ਤੈਰਨਾ", "ਅਣਡਿੱਠਾ ਕਰਨਾ"],
         },
-        answerIndex: 0,
+
       },
     ],
   },
@@ -292,7 +291,7 @@ Remember: Stay calm, stay alert, and always prioritize your safety.`,
           hi: ["तुरंत बाहर भागना", "झुकें और मेज़ पकड़ें", "लिफ्ट का उपयोग करें", "काँच के पास खड़े रहें"],
           pa: ["ਤੁਰੰਤ ਬਾਹਰ ਭੱਜੋ", "ਝੁਕੋ ਤੇ ਮੇਜ਼ ਫੜੋ", "ਲਿਫ਼ਟ ਵਰਤੋ", "ਸ਼ੀਸ਼ੇ ਕੋਲ ਖੜ੍ਹੋ"],
         },
-        answerIndex: 1,
+
       },
       {
         question: {
@@ -305,7 +304,7 @@ Remember: Stay calm, stay alert, and always prioritize your safety.`,
           hi: ["वे धीमी हैं", "वे फंस सकती हैं", "वे महंगी हैं", "वे शोर करती हैं"],
           pa: ["ਉਹ ਹੌਲੀ ਹਨ", "ਉਹ ਫਸ ਸਕਦੀਆਂ ਹਨ", "ਉਹ ਮਹਿੰਗੀਆਂ ਹਨ", "ਉਹ ਸ਼ੋਰ ਕਰਦੀਆਂ ਹਨ"],
         },
-        answerIndex: 1,
+
       },
       {
         question: {
@@ -318,7 +317,7 @@ Remember: Stay calm, stay alert, and always prioritize your safety.`,
           hi: ["तहखाना", "खुला मैदान", "लिफ्ट", "बालकनी"],
           pa: ["ਬੇਸਮੈਂਟ", "ਖੁੱਲ੍ਹਾ ਮੈਦਾਨ", "ਲਿਫ਼ਟ", "ਬਾਲਕਨੀ"],
         },
-        answerIndex: 1,
+
       },
       {
         question: {
@@ -331,7 +330,7 @@ Remember: Stay calm, stay alert, and always prioritize your safety.`,
           hi: ["खिड़कियाँ और शीशे", "मेज़", "सीढ़ियाँ", "खुला मैदान"],
           pa: ["ਖਿੜਕੀਆਂ ਤੇ ਸ਼ੀਸ਼ੇ", "ਮੇਜ਼", "ਸੀੜੀਆਂ", "ਖੁੱਲ੍ਹਾ ਮੈਦਾਨ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -344,7 +343,7 @@ Remember: Stay calm, stay alert, and always prioritize your safety.`,
           hi: ["मुख्य भूकंप", "मुख्य के बाद छोटे झटके", "तूफान", "बारिश"],
           pa: ["ਮੁੱਖ ਭੂਚਾਲ", "ਮੁੱਖ ਤੋਂ ਬਾਅਦ ਛੋਟੇ ਝਟਕੇ", "ਤੂਫ਼ਾਨ", "ਬਰਸਾਤ"],
         },
-        answerIndex: 1,
+
       },
     ],
   },
@@ -451,7 +450,7 @@ Remember: Stay calm, act quickly, and prioritize safety.`,
           hi: ["चूल्हा छोड़ना", "भोजन चलाना", "मसाले डालना", "बर्तन उपयोग करना"],
           pa: ["ਚੁੱਲ੍ਹਾ ਛੱਡਣਾ", "ਖਾਣਾ ਚਲਾਉਣਾ", "ਮਸਾਲੇ ਪਾਉਣਾ", "ਬਰਤਨ ਵਰਤਣਾ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -464,7 +463,7 @@ Remember: Stay calm, act quickly, and prioritize safety.`,
           hi: ["ऊँचाई पर", "जमीन के पास", "बालकनी", "सीढ़ियाँ"],
           pa: ["ਉੱਚਾਈ ਤੇ", "ਜ਼ਮੀਨ ਦੇ ਨੇੜੇ", "ਬਾਲਕਨੀ", "ਸੀੜੀਆਂ"],
         },
-        answerIndex: 1,
+
       },
       {
         question: {
@@ -477,7 +476,7 @@ Remember: Stay calm, act quickly, and prioritize safety.`,
           hi: ["माइक्रोवेव", "आग बुझाने वाला यंत्र", "वैक्यूम क्लीनर", "पंखा"],
           pa: ["ਮਾਈਕਰੋਵੇਵ", "ਅੱਗ ਬੁਝਾਉਣ ਵਾਲਾ ਯੰਤਰ", "ਵੈਕਿਊਮ ਕਲੀਨਰ", "ਪੱਖਾ"],
         },
-        answerIndex: 1,
+
       },
       {
         question: {
@@ -490,7 +489,7 @@ Remember: Stay calm, act quickly, and prioritize safety.`,
           hi: ["हाँ", "नहीं"],
           pa: ["ਹਾਂ", "ਨਹੀਂ"],
         },
-        answerIndex: 1,
+
       },
       {
         question: {
@@ -503,7 +502,7 @@ Remember: Stay calm, act quickly, and prioritize safety.`,
           hi: ["नियमित रूप से जांचे", "कभी न जांचें", "हटाएं", "अनदेखा करें"],
           pa: ["ਨਿਯਮਿਤ ਜਾਂਚੇ", "ਕਦੇ ਨਾ ਜਾਂਚੋ", "ਹਟਾਓ", "ਅਣਡਿੱਠਾ ਕਰੋ"],
         },
-        answerIndex: 0,
+
       },
     ],
   },
@@ -604,7 +603,7 @@ Remember: Stay hydrated, avoid the sun, and prioritize your health.`,
           hi: ["पानी पीना", "भोजन छोड़ना", "भारी कपड़े", "बाहर खेल"],
           pa: ["ਪਾਣੀ ਪੀਣਾ", "ਖਾਣਾ ਛੱਡਣਾ", "ਭਾਰੀ ਕੱਪੜੇ", "ਬਾਹਰ ਖੇਡਾਂ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -617,7 +616,7 @@ Remember: Stay hydrated, avoid the sun, and prioritize your health.`,
           hi: ["हल्के सूती", "ऊन", "रेशम", "चमड़ा"],
           pa: ["ਹਲਕੇ ਕਪਾਹ", "ਊਨ", "ਰੇਸ਼ਮ", "ਚਮੜਾ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -630,7 +629,7 @@ Remember: Stay hydrated, avoid the sun, and prioritize your health.`,
           hi: ["सुबह", "दोपहर", "शाम", "रात"],
           pa: ["ਸਵੇਰ", "ਦੁਪਹਿਰ", "ਸ਼ਾਮ", "ਰਾਤ"],
         },
-        answerIndex: 1,
+
       },
       {
         question: {
@@ -643,7 +642,7 @@ Remember: Stay hydrated, avoid the sun, and prioritize your health.`,
           hi: ["चक्कर आना", "ऊर्जा बढ़ना", "अच्छी नींद", "भूख"],
           pa: ["ਚੱਕਰ ਆਉਣਾ", "ਉਰਜਾ ਵੱਧਣਾ", "ਵਧੀਆ ਨੀਂਦ", "ਭੁੱਖ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -656,7 +655,7 @@ Remember: Stay hydrated, avoid the sun, and prioritize your health.`,
           hi: ["छाया/कूलर जगह", "सीधी धूप", "खेल का मैदान", "छत"],
           pa: ["ਛਾਂ/ਕੂਲਰ ਵਾਲੀ ਥਾਂ", "ਸਿੱਧੀ ਧੁੱਪ", "ਖੇਡ ਮੈਦਾਨ", "ਛੱਤ"],
         },
-        answerIndex: 0,
+
       },
     ],
   },
@@ -757,7 +756,7 @@ Remember: Good hygiene, mask usage, distancing, and vaccination keep you and oth
           hi: ["मास्क और स्वच्छता", "भीड़", "भूख", "यात्रा"],
           pa: ["ਮਾਸਕ ਤੇ ਸਫਾਈ", "ਭੀੜ", "ਭੁੱਖ", "ਯਾਤਰਾ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -770,7 +769,7 @@ Remember: Good hygiene, mask usage, distancing, and vaccination keep you and oth
           hi: ["2 मीटर", "20 सेमी", "5 सेमी", "10 सेमी"],
           pa: ["2 ਮੀਟਰ", "20 ਸੈਂਟੀਮੀਟਰ", "5 ਸੈਂਟੀਮੀਟਰ", "10 ਸੈਂਟੀਮੀਟਰ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -783,7 +782,7 @@ Remember: Good hygiene, mask usage, distancing, and vaccination keep you and oth
           hi: ["बड़ी भीड़", "हाथ धोना", "मास्क", "टीकाकरण"],
           pa: ["ਵੱਡੀਆਂ ਭੀੜਾਂ", "ਹੱਥ ਧੋਣਾ", "ਮਾਸਕ", "ਟੀਕਾਕਰਣ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -796,7 +795,7 @@ Remember: Good hygiene, mask usage, distancing, and vaccination keep you and oth
           hi: ["कीटाणु हटाने के लिए", "मज़े के लिए", "सूखी त्वचा", "फैशन"],
           pa: ["ਜੀਵਾਣੂ ਹਟਾਉਣ ਲਈ", "ਮਜ਼ੇ ਲਈ", "ਸੁੱਕੀ ਚਮੜੀ", "ਫੈਸ਼ਨ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -809,7 +808,7 @@ Remember: Good hygiene, mask usage, distancing, and vaccination keep you and oth
           hi: ["सुरक्षा", "भोजन", "पेय", "खेल"],
           pa: ["ਸੁਰੱਖਿਆ", "ਭੋਜਨ", "ਪੀਣ ਵਾਲੀਆਂ ਚੀਜ਼ਾਂ", "ਖੇਡਾਂ"],
         },
-        answerIndex: 0,
+
       },
     ],
   },
@@ -910,7 +909,7 @@ Remember: Awareness, caution, and quick action can save lives.`,
           hi: ["आपातकालीन निकास", "कैफेटेरिया", "सजावट", "पार्किंग"],
           pa: ["ਐਮਰਜੈਂਸੀ ਗੇਟ", "ਕੈਂਟੀਨ", "ਸਜਾਵਟ", "ਪਾਰਕਿੰਗ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -923,7 +922,7 @@ Remember: Awareness, caution, and quick action can save lives.`,
           hi: ["सुरक्षात्मक उपकरण", "कैज़ुअल कपड़े", "फैशन कपड़े", "स्पोर्ट्स वियर"],
           pa: ["ਸੁਰੱਖਿਆ ਕੱਪੜੇ", "ਕੈਜ਼ੁਅਲ ਕੱਪੜੇ", "ਫੈਸ਼ਨ ਕੱਪੜੇ", "ਸਪੋਰਟਸ ਕੱਪੜੇ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -936,7 +935,7 @@ Remember: Awareness, caution, and quick action can save lives.`,
           hi: ["अज्ञात रसायन", "सुरक्षा मास्क", "पानी की बोतल", "स्विच"],
           pa: ["ਅਣਜਾਣ ਰਸਾਇਣ", "ਸੁਰੱਖਿਆ ਮਾਸਕ", "ਪਾਣੀ ਦੀ ਬੋਤਲ", "ਸਵਿੱਚ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -949,7 +948,7 @@ Remember: Awareness, caution, and quick action can save lives.`,
           hi: ["अलार्म बजाना", "अनदेखा करना", "धूम्रपान करना", "सोना"],
           pa: ["ਅਲਾਰਮ ਦੇਣਾ", "ਅਣਡਿੱਠਾ ਕਰਨਾ", "ਧੂਮਰਪਾਨ ਕਰਨਾ", "ਸੌਣਾ"],
         },
-        answerIndex: 0,
+
       },
       {
         question: {
@@ -962,7 +961,7 @@ Remember: Awareness, caution, and quick action can save lives.`,
           hi: ["शांतिपूर्वक, दूसरों की मदद करें", "धक्का देकर भागें", "छुपें", "देरी करें"],
           pa: ["ਸ਼ਾਂਤੀ ਨਾਲ, ਹੋਰਾਂ ਦੀ ਮਦਦ ਕਰੋ", "ਧੱਕਾ ਦੇ ਕੇ ਭੱਜੋ", "ਛੁਪੋ", "ਦੇਰੀ ਕਰੋ"],
         },
-        answerIndex: 0,
+
       },
     ],
   },
@@ -1060,7 +1059,7 @@ Remember: Efficient water use and planning help minimize drought impact.`,
         hi: ["पानी की बचत करें", "लीक को नजरअंदाज करें", "पानी बर्बाद करें", "अधिक घास लगाएँ"],
         pa: ["ਪਾਣੀ ਦੀ ਬਚਤ ਕਰੋ", "ਲੀਕ ਨੂੰ ਨਜ਼ਰਅੰਦਾਜ਼ ਕਰੋ", "ਪਾਣੀ ਬਰਬਾਦ ਕਰੋ", "ਹੋਰ ਘਾਹ ਲਗਾਓ"],
       },
-      answerIndex: 0,
+
     },
     {
       question: {
@@ -1073,7 +1072,7 @@ Remember: Efficient water use and planning help minimize drought impact.`,
         hi: ["सूखा-प्रतिरोधी फसलें", "जल-गहन फसलें", "विदेशी पौधे", "सिर्फ फूल"],
         pa: ["ਸੂਖਾ-ਰੋਧੀ ਫਸਲਾਂ", "ਪਾਣੀ ਜ਼ਿਆਦਾ ਲੈਣ ਵਾਲੀਆਂ ਫਸਲਾਂ", "ਵਿਦੇਸ਼ੀ ਪੌਦੇ", "ਸਿਰਫ ਫੁੱਲ"],
       },
-      answerIndex: 0,
+
     },
     {
       question: {
@@ -1086,7 +1085,7 @@ Remember: Efficient water use and planning help minimize drought impact.`,
         hi: ["पानी की उपलब्धता बढ़ाने के लिए", "समय बर्बाद करने के लिए", "घर सजाने के लिए", "खेल खेलने के लिए"],
         pa: ["ਪਾਣੀ ਦੀ ਉਪਲਬਧਤਾ ਵਧਾਉਣ ਲਈ", "ਸਮਾਂ ਬਰਬਾਦ ਕਰਨ ਲਈ", "ਘਰ ਸਜਾਉਣ ਲਈ", "ਖੇਡਣ ਲਈ"],
       },
-      answerIndex: 0,
+
     },
     {
       question: {
@@ -1099,7 +1098,7 @@ Remember: Efficient water use and planning help minimize drought impact.`,
         hi: ["पानी बर्बाद करना", "लीक ठीक करना", "ड्रिप इरिगेशन का उपयोग", "पानी साझा करना"],
         pa: ["ਪਾਣੀ ਬਰਬਾਦ ਕਰਨਾ", "ਲੀਕ ਠੀਕ ਕਰਨਾ", "ਡ੍ਰਿਪ ਸਿੰਚਾਈ ਵਰਤਣਾ", "ਪਾਣੀ ਸਾਂਝਾ ਕਰਨਾ"],
       },
-      answerIndex: 0,
+
     },
     {
       question: {
@@ -1112,7 +1111,7 @@ Remember: Efficient water use and planning help minimize drought impact.`,
         hi: ["संसाधन साझा करें और कमी की सूचना दें", "पड़ोसियों की अनदेखी करें", "पानी बर्बाद करें", "जल-गहन फसलें लगाएँ"],
         pa: ["ਸੰਸਾਧਨ ਸਾਂਝੇ ਕਰੋ ਅਤੇ ਘਾਟ ਦੀ ਸੂਚਨਾ ਦਿਓ", "ਪੜੋਸੀਆਂ ਨੂੰ ਨਜ਼ਰਅੰਦਾਜ਼ ਕਰੋ", "ਪਾਣੀ ਬਰਬਾਦ ਕਰੋ", "ਪਾਣੀ ਜ਼ਿਆਦਾ ਲੈਣ ਵਾਲੀਆਂ ਫਸਲਾਂ ਬੀਜੋ"],
       },
-      answerIndex: 0,
+
     },
   ],
 },{
@@ -1221,7 +1220,7 @@ Remember: Awareness and prompt action can save lives.`,
         hi: ["ऊँची जगह जाएँ", "खड़े रहें", "नीचे भागें", "फोटो लें"],
         pa: ["ਉੱਚੀ ਜਗ੍ਹਾ ਤੇ ਜਾਓ", "ਖੜੇ ਰਹੋ", "ਥੱਲੇ ਦੌੜੋ", "ਫੋਟੋ ਲਵੋ"],
       },
-      answerIndex: 0,
+
     },
     {
       question: {
@@ -1234,7 +1233,7 @@ Remember: Awareness and prompt action can save lives.`,
         hi: ["ढलानों पर", "समतल भूमि पर", "घाटियों में", "सामुदायिक क्षेत्रों में"],
         pa: ["ਢਲਾਨਾਂ 'ਤੇ", "ਸਮਤਲ ਜ਼ਮੀਨ 'ਤੇ", "ਵੈਲੀਜ਼ ਵਿੱਚ", "ਸਮੂਦਾਇਕ ਖੇਤਰਾਂ ਵਿੱਚ"],
       },
-      answerIndex: 0,
+
     },
     {
       question: {
@@ -1247,7 +1246,7 @@ Remember: Awareness and prompt action can save lives.`,
         hi: ["टॉर्च", "खिलौने", "पेंट", "अप्रयुक्त कपड़े"],
         pa: ["ਟਾਰਚ", "ਖਿਲੌਣੇ", "ਪੇਂਟ", "ਜਿਹੜੇ ਕੱਪੜੇ ਤੁਸੀਂ ਵਰਤੋਂਗੇ ਨਹੀਂ"],
       },
-      answerIndex: 0,
+
     },
     {
       question: {
@@ -1260,7 +1259,7 @@ Remember: Awareness and prompt action can save lives.`,
         hi: ["मलबे से दूर रहें", "पेड़ों के नीचे खड़े रहें", "पथ में चलें", "सेल्फी लें"],
         pa: ["ਮਲਬੇ ਤੋਂ ਦੂਰ ਰਹੋ", "ਦਰੱਖਤਾਂ ਹੇਠਾਂ ਖੜੇ ਰਹੋ", "ਰਸਤੇ ਵਿੱਚ ਤੁਰੋ", "ਸੈਲਫੀ ਲਵੋ"],
       },
-      answerIndex: 0,
+
     },
     {
       question: {
@@ -1273,7 +1272,7 @@ Remember: Awareness and prompt action can save lives.`,
         hi: ["केवल जब अधिकारी कहें कि सुरक्षित है", "तुरंत", "बिना जांच अगले दिन", "कभी नहीं"],
         pa: ["ਸਿਰਫ ਅਧਿਕਾਰੀਆਂ ਦੇ ਸੁਰੱਖਿਅਤ ਕਹਿਣ ਤੋਂ ਬਾਅਦ", "ਫੌਰ ਹੀ", "ਅਗਲੇ ਦਿਨ ਬਿਨਾਂ ਜਾਂਚ", "ਕਦੇ ਨਹੀਂ"],
       },
-      answerIndex: 0,
+
     },
   ],
 },

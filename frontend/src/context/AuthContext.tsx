@@ -4,7 +4,7 @@ import {
   User,
   signInWithPopup,
   signOut,
-  onAuthStateChanged,
+  onIdTokenChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile
@@ -12,6 +12,9 @@ import {
 import { auth, googleProvider } from '@/lib/firebase';
 
 interface AuthContextType {
+  role: 'student' | 'teacher' | 'administrator';
+  schoolId: string | null;
+  authError: string;
   user: User | null;
   loading: boolean;
   googleSignIn: () => Promise<void>;
@@ -33,14 +36,28 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [role, setRole] = useState<AuthContextType['role']>('student');
+  const [schoolId, setSchoolId] = useState<string | null>(null);
+  const [authError, setAuthError] = useState('');
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    let generation = 0;
+    const unsubscribe = onIdTokenChanged(auth, async (currentUser) => {
+      const current = ++generation;
+      setLoading(true); setRole('student'); setSchoolId(null); setAuthError('');
       setUser(currentUser);
-      setLoading(false);
+      try {
+        if (currentUser) {
+          const { claims } = await currentUser.getIdTokenResult();
+          if (current !== generation) return;
+          setRole(claims.role === 'administrator' || claims.role === 'teacher' ? claims.role : 'student');
+          setSchoolId(typeof claims.schoolId === 'string' ? claims.schoolId : null);
+        }
+      } catch { if (current === generation) setAuthError('Unable to load account permissions. Sign in again.'); }
+      finally { if (current === generation) setLoading(false); }
     });
 
-    return () => unsubscribe();
+    return () => { generation++; unsubscribe(); };
   }, []);
 
   const googleSignIn = async () => {
@@ -89,6 +106,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const value = {
+    role, schoolId, authError,
     user,
     loading,
     googleSignIn,

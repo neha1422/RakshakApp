@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function member() { return request.auth != null && request.auth.token.schoolId is string && request.auth.token.role in ['student','teacher','administrator']; }
+    function school(data) { return member() && data.schoolId == request.auth.token.schoolId; }
+    function staff() { return member() && request.auth.token.role in ['teacher','administrator']; }
+    function administrator() { return member() && request.auth.token.role == 'administrator'; }
+    function owner(data) { return school(data) && data.userId == request.auth.uid; }
+    function readPrivate() { return school(resource.data) && (staff() || resource.data.userId == request.auth.uid); }
+    function newRecord() { return owner(request.resource.data) && request.resource.data.createdAt == request.time && request.resource.data.updatedAt == request.time; }
+    function unchangedIdentity() { return request.resource.data.schoolId == resource.data.schoolId && request.resource.data.userId == resource.data.userId && request.resource.data.createdAt == resource.data.createdAt && request.resource.data.updatedAt == request.time; }
+    match /users/{id} {
+      allow read: if readPrivate();
+      allow update: if owner(resource.data) && id == request.auth.uid && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName','updatedAt']) && request.resource.data.displayName is string && request.resource.data.displayName.size() <= 100 && request.resource.data.updatedAt == request.time;
+    }
+    match /schools/{id} { allow read: if member() && id == request.auth.token.schoolId; }
+    match /learningModules/{id} { allow read: if member(); }
+    match /quizzes/{id} { allow read: if member() && resource.data.published == true; }
+    match /quizKeys/{id} { allow read, write: if false; }
+    match /quizResults/{id} { allow read: if readPrivate(); }
+    match /learningProgress/{id} {
+      allow read: if readPrivate();
+      allow create: if newRecord() && id == request.auth.uid + '_' + string(request.resource.data.moduleId) && request.resource.data.keys().hasOnly(['schoolId','userId','moduleId','completed','createdAt','updatedAt']) && request.resource.data.moduleId is int && request.resource.data.completed == true;
+      allow update: if owner(resource.data) && unchangedIdentity() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['completed','updatedAt']) && request.resource.data.completed == true;
+    }
+    match /alerts/{id} {
+      allow read: if school(resource.data);
+      allow create: if administrator() && newRecord() && request.resource.data.keys().hasOnly(['schoolId','userId','emergency','message','active','createdAt','updatedAt']) && request.resource.data.message is string && request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 2000 && request.resource.data.emergency is string && request.resource.data.emergency.size() <= 100 && request.resource.data.active == true;
+      allow update: if administrator() && school(resource.data) && unchangedIdentity() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['message','active','updatedAt']) && request.resource.data.message is string && request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 2000 && request.resource.data.active is bool;
+      allow delete: if administrator() && school(resource.data);
+    }
+    match /drills/{id} {
+      allow read: if school(resource.data);
+      allow create: if staff() && newRecord() && request.resource.data.keys().hasOnly(['schoolId','userId','title','topic','startedAt','completion_time','createdAt','updatedAt']) && request.resource.data.topic in ['earthquake','fire','flood'] && request.resource.data.title is string && request.resource.data.title.size() <= 200 && request.resource.data.startedAt is string && request.resource.data.completion_time is string;
+      allow delete: if staff() && school(resource.data);
+    }
+    match /drillResults/{id} {
+      allow read: if readPrivate();
+      allow create: if newRecord() && request.resource.data.keys().hasOnly(['schoolId','userId','drillId','completedAt','durationSeconds','createdAt','updatedAt']) && request.resource.data.drillId is string && id == request.auth.uid + '_' + request.resource.data.drillId && get(/databases/$(database)/documents/drills/$(request.resource.data.drillId)).data.schoolId == request.auth.token.schoolId && request.resource.data.durationSeconds is number && request.resource.data.durationSeconds >= 0 && request.resource.data.durationSeconds <= 86400 && request.resource.data.completedAt is string;
+    }
+    match /gameProgress/{id} {
+      allow read: if readPrivate();
+      allow create: if newRecord() && request.resource.data.keys().hasOnly(['schoolId','userId','gameId','score','total','badge','createdAt','updatedAt']) && request.resource.data.gameId == 'disaster-quest' && request.resource.data.score is int && request.resource.data.total is int && request.resource.data.total > 0 && request.resource.data.total <= 100 && request.resource.data.score >= 0 && request.resource.data.score <= request.resource.data.total && request.resource.data.badge in ['completed','safety-star'];
+    }
+    match /sosRequests/{id} {
+      allow read: if school(resource.data) && (administrator() || resource.data.userId == request.auth.uid);
+      allow create: if newRecord() && request.resource.data.keys().hasOnly(['schoolId','userId','latitude','longitude','accuracy','status','createdAt','updatedAt']) && request.resource.data.status == 'pending' && request.resource.data.latitude is number && request.resource.data.latitude >= -90 && request.resource.data.latitude <= 90 && request.resource.data.longitude is number && request.resource.data.longitude >= -180 && request.resource.data.longitude <= 180 && request.resource.data.accuracy is number && request.resource.data.accuracy >= 0;
+      allow update: if administrator() && school(resource.data) && unchangedIdentity() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','updatedAt']) && request.resource.data.status in ['acknowledged','resolved'];
+      allow delete: if school(resource.data) && (administrator() || resource.data.userId == request.auth.uid);
+    }
+    match /riskInformation/{id} {
+      allow read: if school(resource.data);
+      allow create: if administrator() && newRecord() && request.resource.data.keys().hasOnly(['schoolId','userId','district','note','createdAt','updatedAt']) && request.resource.data.district is string && request.resource.data.district.size() <= 100 && request.resource.data.note is string && request.resource.data.note.size() <= 1000;
+      allow delete: if administrator() && school(resource.data);
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}

@@ -1,3 +1,4 @@
+import { useAuth } from '@/context/AuthContext';
 import React, { useState } from "react";
 import { DrillProvider } from "../components/drills/DrillContext";
 import StudentDrillDashboard from "../components/drills/StudentDrillDashboard";
@@ -6,6 +7,7 @@ import "../components/drills/drills.css";
 import DrillRunner from "../components/drills/drill_runner";
 
 export default function App() {
+  const { role } = useAuth();
   const [isTeacherView, setIsTeacherView] = useState(false);
 
   return (
@@ -13,13 +15,13 @@ export default function App() {
       <DrillProvider>
         <main className="drills-container">
           <div className="drills-toolbar">
-            <button
+            {role !== "student" && <button
               className="toggle-btn"
               onClick={() => setIsTeacherView(prev => !prev)}
               aria-pressed={isTeacherView}
             >
               {isTeacherView ? "Switch to Student View" : "Switch to Teacher View"}
-            </button>
+            </button>}
           </div>
 
           <section className="drills-content">

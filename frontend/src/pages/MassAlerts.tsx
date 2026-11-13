@@ -14,7 +14,7 @@ const disasters = [
 ];
 
 interface OutletContext {
-  incrementAlertCount: (emergency: string, message: string) => void;
+  incrementAlertCount: (emergency: string, message: string) => Promise<void>;
   darkMode: boolean;
 }
 
@@ -26,14 +26,14 @@ export default function MassAlerts() {
   // Get the increment function and darkMode state from the outlet context
   const { incrementAlertCount, darkMode } = useOutletContext<OutletContext>();
 
-  const sendAlert = () => {
+  const sendAlert = async () => {
     if (!selectedDisaster || !message) {
       setStatus("Please select a disaster and enter a message.");
       return;
     }
     
     // Increment the alert count in the parent component and add to history
-    incrementAlertCount(selectedDisaster, message);
+    try { await incrementAlertCount(selectedDisaster, message); } catch (e) { setStatus(e.message); return; }
     
     setStatus(`Alert for ${selectedDisaster} sent successfully!`);
     setMessage("");

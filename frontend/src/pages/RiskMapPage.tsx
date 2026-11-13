@@ -1,3 +1,4 @@
+import { useCloud } from '@/hooks/useCloud';
 import React, { useState } from "react";
 import {
   MapContainer,
@@ -48,6 +49,7 @@ function FitBounds({ bounds }: { bounds: LatLngBoundsExpression | null }) {
 }
 
 const RiskMapPage = () => {
+  const { rows: advisories, error } = useCloud('riskInformation');
   const punjabCenter: LatLngExpression = [31.1471, 75.3412];
   const [hoveredDistrict, setHoveredDistrict] = useState<any | null>(null);
   const [clickedBounds, setClickedBounds] =
@@ -67,6 +69,7 @@ const RiskMapPage = () => {
         </p>
       </header>
 
+      <section className="px-6 py-3" aria-live="polite"><h2>School risk advisories</h2>{error && <p role="alert">{error}</p>}{advisories.map(a => <p key={a.id}><strong>{a.district}:</strong> {a.note}</p>)}</section>
       {/* Filter */}
       <div className="px-6 py-2 border-b flex gap-4 items-center">
         <label className="text-sm font-medium">Filter by Disaster:</label>

@@ -1,10 +1,11 @@
+import { editRecord, removeRecord } from '@/lib/cloud';
 import React, { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { FaSearch, FaTrash, FaFilter } from "react-icons/fa";
 import "../AdminDashboard.css";
 
 interface AlertRecord {
-  id: number;
+  id: string;
   timestamp: Date;
   emergency: string;
   message: string;
@@ -18,7 +19,7 @@ interface OutletContext {
 }
 
 export default function MassAlertHistory() {
-  const { darkMode, alertHistory, setAlertHistory, clearAllAlerts } = useOutletContext<OutletContext>();
+  const { darkMode, alertHistory } = useOutletContext<OutletContext>();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterEmergency, setFilterEmergency] = useState("All");
   const [filteredAlerts, setFilteredAlerts] = useState<AlertRecord[]>([]);
@@ -44,7 +45,7 @@ export default function MassAlertHistory() {
     }
     
     // Sort by timestamp (newest first)
-    results = results.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+    results = [...results].sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
     
     setFilteredAlerts(results);
   }, [alertHistory, searchTerm, filterEmergency]);
@@ -53,27 +54,24 @@ export default function MassAlertHistory() {
     return date.toLocaleString();
   };
 
-  const handleClearHistory = () => {
-    if (window.confirm("Are you sure you want to clear all alert history? This action cannot be undone.")) {
-      clearAllAlerts(); // This will clear both history and alert count
-    }
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
+  const deleteAlert = async (id: string) => {
+    setBusy(true);
+    try { await removeRecord('alerts', id); } catch (e) { setError(e.message); } finally { setBusy(false); }
   };
-
-  const deleteAlert = (id: number) => {
-    setAlertHistory(prev => prev.filter(alert => alert.id !== id));
+  const updateAlert = async (id: string) => {
+    const message = window.prompt('Updated alert message');
+    if (!message?.trim()) return;
+    setBusy(true);
+    try { await editRecord('alerts', id, { message: message.trim() }); } catch (e) { setError(e.message); } finally { setBusy(false); }
   };
 
   return (
     <div className="massalert-history-container">
       <div className="history-header">
         <h2>Mass Alert History</h2>
-        <button 
-          className="clear-history-btn"
-          onClick={handleClearHistory}
-          disabled={alertHistory.length === 0}
-        >
-          <FaTrash /> Clear All History
-        </button>
+        {error && <p role="alert">{error}</p>}
       </div>
 
       <div className="history-filters">
@@ -122,11 +120,13 @@ export default function MassAlertHistory() {
                   <td>
                     <button 
                       className="delete-alert-btn"
-                      onClick={() => deleteAlert(alert.id)}
+                      disabled={busy}
+                      onClick={() => void deleteAlert(alert.id)}
                       title="Delete this alert"
                     >
                       <FaTrash />
                     </button>
+                    <button disabled={busy} onClick={() => void updateAlert(alert.id)}>Edit</button>
                   </td>
                 </tr>
               ))}

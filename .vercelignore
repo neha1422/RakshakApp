@@ -1,0 +1,11 @@
+.git
+**/.env
+**/.env.*
+**/node_modules
+**/dist
+**/*.log
+**/.firebase
+frontend/scripts
+frontend/tests
+frontend/server/catalog
+docs

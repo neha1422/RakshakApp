@@ -1,5 +1,5 @@
 // src/features/drills/LatestDrill.jsx
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { DrillStart } from "./DrillStart";
 import DrillRunner from "./drill_runner";
 import { drillStepsData } from "./all_drills_data";
@@ -9,7 +9,8 @@ function capitalize(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export function LatestDrill({ latestDrill, onStart }) {
+export function LatestDrill({ latestDrill, onComplete }) {
+  const startedAt = useRef(0);
   const [isRunning, setIsRunning] = useState(false);
   const [currentDrill, setCurrentDrill] = useState(null);
 
@@ -19,14 +20,16 @@ export function LatestDrill({ latestDrill, onStart }) {
       const drillData = drillStepsData[latestDrill.topic];
       if (drillData) {
         setCurrentDrill(drillData);
+        startedAt.current = Date.now();
         setIsRunning(true);
         // Call the original onStart callback if provided
-        if (typeof onStart === "function") onStart();
+
       }
     }
   };
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
+    try { if (onComplete) await onComplete(Math.round((Date.now() - startedAt.current) / 1000)); } catch { return; }
     setIsRunning(false);
     setCurrentDrill(null);
   };

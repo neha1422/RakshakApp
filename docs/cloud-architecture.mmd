@@ -1,0 +1,16 @@
+flowchart TD
+  S[Student browser] --> V[Vercel CDN: existing React app]
+  T[Teacher or administrator browser] --> V
+  V --> A[Firebase Authentication: Google and email/password]
+  A --> C[Signed ID token: role and schoolId claims]
+  C --> F[Firestore SDK and Security Rules]
+  F --> DB[(Cloud Firestore)]
+  DB --> RT[onSnapshot school-scoped listeners]
+  RT --> S
+  RT --> T
+  C --> API[Vercel POST /api/cloud]
+  API --> CHECK[Admin SDK verifies identity and membership]
+  CHECK --> KEY[Private quizKeys collection]
+  CHECK --> DB
+  OWNER[Project owner: explicit provisioning script] --> A
+  OWNER --> DB

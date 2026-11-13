@@ -1,21 +1,35 @@
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { disasters } from "@/modules/data/disasters";
+import { disasters, QuizQuestion } from "@/modules/data/disasters";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { useProgress } from "@/modules/ProgressContext";
+import { api, db } from "@/lib/cloud";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function ModuleDetail() {
   const { id } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [language, setLanguage] = useState<"en" | "hi" | "pa">(
-    (searchParams.get("lang") as "en" | "hi" | "pa") || "en"
+    (["en", "hi", "pa"].includes(searchParams.get("lang") || "") ? searchParams.get("lang") : "en") as "en" | "hi" | "pa"
   );
   const navigate = useNavigate();
 
   const module = disasters.find((m) => m.id === Number(id));
-  const { markComplete } = useProgress();
+  const [cloudQuiz, setCloudQuiz] = useState<QuizQuestion[]>([]);
+  const [quizError, setQuizError] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [answers, setAnswers] = useState<number[]>([]);
+  const [attemptId, setAttemptId] = useState(() => crypto.randomUUID());
+  useEffect(() => {
+    let active = true;
+    getDoc(doc(db, 'quizzes', String(id))).then(s => {
+      if (!active) return;
+      if (!s.exists() || !s.data().published) throw new Error('Quiz not published. Ask the project owner to seed the catalog.');
+      setCloudQuiz(s.data().questions);
+    }).catch(e => { if (active) setQuizError(e.message); });
+    return () => { active = false; };
+  }, [id]);
 
   const [step, setStep] = useState<"reading" | "quiz" | "summary">("reading");
   const [qIndex, setQIndex] = useState(0);
@@ -28,21 +42,23 @@ export default function ModuleDetail() {
 
   if (!module) return <p>Module not found</p>;
 
-  const question = module.quiz[qIndex];
+  const question = cloudQuiz[qIndex];
 
   const handleAnswer = (i: number) => {
     setAnswered(i);
-    if (i === question.answerIndex) setScore(score + 1);
+    setAnswers(prev => { const next = [...prev]; next[qIndex] = i; return next; });
   };
 
-  const handleNextQuestion = () => {
-    if (qIndex + 1 < module.quiz.length) {
+  const handleNextQuestion = async () => {
+    if (qIndex + 1 < cloudQuiz.length) {
       setQIndex(qIndex + 1);
       setAnswered(null);
       // Removed scrollTo to keep the button in place
     } else {
-      setStep("summary");
-      markComplete(module.id);
+      setSaving(true); setQuizError('');
+      try { const result = await api('gradeQuiz', { quizId: String(module.id), answers, attemptId }); setScore(result.score); setStep('summary'); }
+      catch (e) { setQuizError(e.message); }
+      finally { setSaving(false); }
     }
   };
 
@@ -109,6 +125,7 @@ export default function ModuleDetail() {
     </div>
       <Card className="flex-1 shadow-2xl rounded-3xl overflow-hidden max-w-5xl mx-auto w-full">
         <CardContent className="p-8 flex flex-col gap-6">
+          {quizError && <p role="alert">{quizError}</p>}
           {/* Reading Step */}
           {step === "reading" && (
             <div className="flex flex-col gap-6">
@@ -117,6 +134,7 @@ export default function ModuleDetail() {
               </div>
 
               <Button
+                disabled={!cloudQuiz.length}
                 onClick={() => setStep("quiz")}
                 className="mt-4 bg-blue-600 hover:bg-blue-700 text-white w-full py-4 font-semibold rounded-xl shadow-lg transition-transform hover:scale-105 max-w-xl mx-auto"
               >
@@ -129,20 +147,20 @@ export default function ModuleDetail() {
           {step === "quiz" && (
             <div className="flex flex-col gap-6">
               <Progress
-                value={((qIndex + 1) / module.quiz.length) * 100}
+                value={((qIndex + 1) / cloudQuiz.length) * 100}
                 className="mb-4 transition-all duration-500 ease-in-out"
               />
               <h2 className="text-2xl font-semibold mb-2">
-                Question {qIndex + 1} of {module.quiz.length}
+                Question {qIndex + 1} of {cloudQuiz.length}
               </h2>
               <p className="text-lg mb-4 font-medium">{question.question[language]}</p>
 
               <div className="flex flex-col gap-3">
                 {question.options[language].map((opt, i) => {
-                  const isCorrect = i === question.answerIndex;
+                  const isCorrect = false; // Authoritative grading occurs on the server.
                   const isSelected = i === answered;
 
-                  let baseClass =
+                  const baseClass =
                     "w-full py-3 px-4 rounded-lg text-left font-medium border transition-all cursor-pointer";
 
                   let colorClass =
@@ -150,7 +168,7 @@ export default function ModuleDetail() {
                   if (answered !== null) {
                     if (isCorrect) colorClass = "bg-green-500 border-green-600 text-white";
                     else if (isSelected && !isCorrect)
-                      colorClass = "bg-red-500 border-red-600 text-white";
+                      colorClass = "bg-blue-500 border-blue-600 text-white";
                     else
                       colorClass =
                         "bg-gray-300 dark:bg-gray-600 border-gray-400 dark:border-gray-500 text-gray-800 dark:text-gray-200";
@@ -172,10 +190,11 @@ export default function ModuleDetail() {
               {/* Next Question Button stays below options */}
               {answered !== null && (
                 <Button
+                  disabled={saving}
                   onClick={handleNextQuestion}
                   className="mt-4 bg-blue-600 hover:bg-blue-700 text-white w-full py-4 font-semibold rounded-xl"
                 >
-                  {qIndex + 1 < module.quiz.length ? "Next Question" : "See Summary"}
+                  {qIndex + 1 < cloudQuiz.length ? "Next Question" : "See Summary"}
                 </Button>
               )}
             </div>
@@ -184,22 +203,22 @@ export default function ModuleDetail() {
           {/* Summary Step */}
           {step === "summary" && (
             <div className="text-center space-y-4">
-              <h2 className="text-3xl font-bold">{getSummaryText(100)}</h2>
+              <h2 className="text-3xl font-bold">{{ en: 'Quiz completed', hi: 'क्विज़ पूरा हुआ', pa: 'ਕਵਿਜ਼ ਪੂਰਾ ਹੋਇਆ' }[language]}</h2>
               <p className="text-xl font-medium">
-                {getSummaryText(0)}: {score} / {module.quiz.length}
+                {{ en: 'Your score', hi: 'आपका स्कोर', pa: 'ਤੁਹਾਡਾ ਸਕੋਰ' }[language]}: {score} / {cloudQuiz.length}
               </p>
 
               <p className="text-lg text-gray-700 dark:text-gray-300 font-semibold">
-                {getSummaryText((score / module.quiz.length) * 100)}
+                {getSummaryText((score / cloudQuiz.length) * 100)}
               </p>
 
               <div className="flex flex-col gap-3 mt-4 max-w-sm mx-auto">
-                {score < module.quiz.length && (
+                {score < cloudQuiz.length && (
                   <Button
                     onClick={() => {
                       setStep("quiz");
                       setQIndex(0);
-                      setScore(0);
+                      setScore(0); setAnswers([]); setAttemptId(crypto.randomUUID());
                       setAnswered(null);
                     }}
                     className="bg-yellow-500 hover:bg-yellow-600 text-white py-3 font-semibold rounded-lg"

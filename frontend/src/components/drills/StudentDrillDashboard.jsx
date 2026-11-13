@@ -2,11 +2,13 @@ import React, { useState, useMemo, useEffect } from "react";
 import { Header } from "./Header";
 import { LatestDrill } from "./LatestDrill";
 import { Active_Drills } from "./Active_Drills";
-import { initialData } from "./all_drills_timeline";
+import { useDrills } from "./DrillContext";
+import { useAuth } from "@/context/AuthContext";
 // import "./App.css";
 
 export default function StudentDrillDashboard() {
-  const [data, setData] = useState(initialData);
+  const { data, addDrill, markSafe, busy } = useDrills();
+  const { role } = useAuth();
   const [selectedTopic, setSelectedTopic] = useState(null);
 
   function timeAgo(iso) {
@@ -23,29 +25,6 @@ export default function StudentDrillDashboard() {
 
   function openTopic(t) {
     setSelectedTopic(prev => (prev === t ? null : t));
-  }
-
-  function addDrill(topic) {
-    const newDrill = {
-      id: Math.floor(Math.random() * 1000000) + Date.now(),
-      title: `New ${topic} Drill - ${new Date().toLocaleTimeString()}`,
-      startedAt: new Date().toISOString(),
-      completion_time: new Date(Date.now() + 1000 * 60 * 2).toISOString(),
-      marked_safe: null,
-    };
-    setData(prev => ({ ...prev, [topic]: [newDrill, ...(prev[topic] || [])] }));
-    setSelectedTopic(topic);
-  }
-
-  function markSafe(topic, id) {
-    setData(prev => {
-      const list = prev[topic] || [];
-      const updatedList = list.map(d => {
-        if (d.id === id) return { ...d, marked_safe: new Date().toISOString() };
-        return d;
-      });
-      return { ...prev, [topic]: updatedList };
-    });
   }
 
   const topics = [
@@ -73,7 +52,7 @@ export default function StudentDrillDashboard() {
     <div className="spd-root" role="main">
       <div className="spd-container">
         <Header />
-        <LatestDrill latestDrill={latestDrill} onStart={() => addDrill(latestDrill?.topic || "earthquake")} />
+        <LatestDrill latestDrill={latestDrill} onComplete={duration => markSafe(latestDrill.topic, latestDrill.id, duration)} />
 
         <section className="topic-grid" aria-label="topic grid">
           {topics.map(t => {
@@ -102,17 +81,17 @@ export default function StudentDrillDashboard() {
                   </div>
                 </div>
 
-                <div className="topic-actions">
+                {role !== "student" && <div className="topic-actions">
                   <button
-                    className="btn btn-primary btn-sm"
+                    disabled={busy} className="btn btn-primary btn-sm"
                     onClick={e => {
                       e.stopPropagation();
                       addDrill(t.key);
                     }}
                   >
-                    Run Drill
+                    Schedule Drill
                   </button>
-                </div>
+                </div>}
 
                 {selectedTopic === t.key && (
                   <div id={`drill-list-${t.key}`} className="drill-list">
@@ -124,7 +103,7 @@ export default function StudentDrillDashboard() {
                           <div className="drill-meta">{timeAgo(d.startedAt)}</div>
                         </div>
                         <div>
-                          <button className="mark-safe" onClick={() => markSafe(t.key, d.id)}>Mark Safe</button>
+                          <button disabled={busy} className="mark-safe" onClick={() => void markSafe(t.key, d.id).catch(() => {})}>Mark Safe</button>
                         </div>
                       </div>
                     ))}

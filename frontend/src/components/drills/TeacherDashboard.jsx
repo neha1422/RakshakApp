@@ -6,7 +6,7 @@ import { useDrills } from "./DrillContext";
  * TeacherDashboard — uses CSS classes from App.css for consistent styling
  */
 export default function TeacherDashboard() {
-  const { data } = useDrills();
+  const { data, results } = useDrills();
   const now = new Date();
 
   const drills = useMemo(
@@ -23,6 +23,8 @@ export default function TeacherDashboard() {
     <div className="teacher-panel">
       <div className="teacher-dashboard" role="region" aria-label="Teacher dashboard">
         <h2>Drill Analytics (Live)</h2>
+        <p>{results.length} participation records in the latest 100 results</p>
+        {results.map(r => <p key={r.id}>{r.userId}: {r.drillId} · {r.durationSeconds}s · {r.completedAt}</p>)}
 
         <div className="analytics-wrap" aria-hidden={drills.length === 0}>
           <table className="analytics-table" role="table" aria-label="Drill analytics table">

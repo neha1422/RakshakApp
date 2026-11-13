@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [{ "source": "/dashboard/:path*", "destination": "/index.html" }, { "source": "/auth", "destination": "/index.html" }],
+  "headers": [{ "source": "/api/:path*", "headers": [{ "key": "Cache-Control", "value": "no-store" }] }]
+}

@@ -4,10 +4,11 @@ import { useAuth } from '@/context/AuthContext';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
+  roles?: string[];
 }
 
-export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { user, loading } = useAuth();
+export const ProtectedRoute = ({ children, roles }: ProtectedRouteProps) => {
+  const { user, loading, role, schoolId } = useAuth();
 
   if (loading) {
     return (
@@ -23,6 +24,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   if (!user) {
     return <Navigate to="/auth" replace />;
   }
+  if (roles && (!schoolId || !roles.includes(role))) return <div role="alert" className="p-6">Access denied. A trusted school staff assignment is required.</div>;
 
   return <>{children}</>;
 };

@@ -1,3 +1,8 @@
+import { LiveAlerts } from '@/components/LiveAlerts';
+import { QuizHistory } from '@/components/QuizHistory';
+import { useCloud } from '@/hooks/useCloud';
+import { useProgress } from '@/modules/ProgressContext';
+import { disasters } from '@/modules/data/disasters';
 // src/pages/Dashboard.tsx
 import { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
@@ -30,7 +35,10 @@ export default function Dashboard() {
   const navigate = useNavigate()
   const [activeSection, setActiveSection] = useState("overview")
   const { t } = useTranslation()
-  const { user, logout } = useAuth()
+  const { user, logout, schoolId } = useAuth()
+  const { rows: games } = useCloud("gameProgress", true)
+  const { rows: drills } = useCloud("drillResults", true)
+  const { completedModules } = useProgress()
   const { toast } = useToast()
 
   // Get user display name, fallback to email or "User"
@@ -39,12 +47,12 @@ export default function Dashboard() {
 
   const userStats = {
     name: userName,
-    school: "Government Senior Secondary School, Ludhiana",
+    school: schoolId || "School assignment pending",
     level: t("dashboard.level"),
-    points: 2850,
-    badges: 12,
-    completedDrills: 8,
-    learningProgress: 75
+    points: games.reduce((sum, r) => sum + r.score, 0),
+    badges: games.filter(r => r.badge === "safety-star").length,
+    completedDrills: drills.length,
+    learningProgress: Math.round(completedModules.length * 100 / disasters.length)
   }
 
   // Initialize speech synthesis voices
@@ -119,6 +127,8 @@ export default function Dashboard() {
 
           {/* Main Content */}
           <main className="flex-1 p-6 space-y-8">
+            <LiveAlerts />
+            <QuizHistory />
             {/* Welcome Section */}
             <div className="animate-slide-up-1">
               <Card className="glass-card hover-glow">
@@ -188,7 +198,7 @@ export default function Dashboard() {
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-success rounded-xl mb-4">
                     <Users className="h-6 w-6 text-white" />
                   </div>
-                  <div className="text-2xl font-bold mb-1">156</div>
+                  <div className="text-2xl font-bold mb-1">—</div>
                   <p className="text-sm text-muted-foreground">
                     {t("dashboard.leaderboardRank")}
                   </p>
@@ -200,7 +210,7 @@ export default function Dashboard() {
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-emergency rounded-xl mb-4">
                     <Zap className="h-6 w-6 text-white" />
                   </div>
-                  <div className="text-2xl font-bold mb-1">5</div>
+                  <div className="text-2xl font-bold mb-1">{completedModules.length}</div>
                   <p className="text-sm text-muted-foreground">
                     {t("dashboard.emergencyTrainings")}
                   </p>
@@ -221,7 +231,7 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {/* Flood */}
-                    <div className="flex items-center justify-between p-4 bg-muted/50 rounded-xl hover-lift cursor-pointer">
+                    <div className="flex items-center justify-between p-4 bg-muted/50 rounded-xl hover-lift cursor-pointer" onClick={() => navigate("/dashboard/modules")}>
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
                           <Map className="h-5 w-5 text-white" />
@@ -236,7 +246,7 @@ export default function Dashboard() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-lg font-bold text-success">85%</div>
+                        <div className="text-lg font-bold text-success">{completedModules.includes(1) ? "100%" : "0%"}</div>
                         <div className="text-xs text-muted-foreground">
                           {t("dashboard.complete")}
                         </div>
@@ -244,7 +254,7 @@ export default function Dashboard() {
                     </div>
 
                     {/* Industrial */}
-                    <div className="flex items-center justify-between p-4 bg-muted/50 rounded-xl hover-lift cursor-pointer">
+                    <div className="flex items-center justify-between p-4 bg-muted/50 rounded-xl hover-lift cursor-pointer" onClick={() => navigate("/dashboard/modules")}>
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-gradient-secondary rounded-lg flex items-center justify-center">
                           <AlertTriangle className="h-5 w-5 text-white" />
@@ -259,7 +269,7 @@ export default function Dashboard() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-lg font-bold text-secondary-brand">45%</div>
+                        <div className="text-lg font-bold text-secondary-brand">{completedModules.includes(6) ? "100%" : "0%"}</div>
                         <div className="text-xs text-muted-foreground">
                           {t("dashboard.inProgress")}
                         </div>
@@ -283,7 +293,7 @@ export default function Dashboard() {
                       </div>
                       <div className="text-right">
                         <div className="text-lg font-bold text-muted-foreground">
-                          {t("dashboard.locked")}
+                          {completedModules.includes(2) ? "Completed" : "Available"}
                         </div>
                       </div>
                     </div>
@@ -302,32 +312,7 @@ export default function Dashboard() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-success/10 to-success/5 rounded-lg">
-                      <div className="w-8 h-8 bg-gradient-success rounded-full flex items-center justify-center">
-                        <Award className="h-4 w-4 text-white" />
-                      </div>
-                      <div>
-                        <div className="font-semibold text-sm">
-                          {t("dashboard.achievementFloodSafety")}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          2 {t("dashboard.daysAgo")}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg">
-                      <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center">
-                        <Shield className="h-4 w-4 text-white" />
-                      </div>
-                      <div>
-                        <div className="font-semibold text-sm">
-                          {t("dashboard.achievementDrillMaster")}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          1 {t("dashboard.weekAgo")}
-                        </div>
-                      </div>
-                    </div>
+                    {games.length ? games.slice(0, 3).map(r => <p key={r.id}>{r.badge}: {r.score}/{r.total}</p>) : <p>No game achievements yet.</p>}
                   </CardContent>
                 </Card>
 

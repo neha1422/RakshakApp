@@ -23,6 +23,9 @@ import { AuthProvider } from "./context/AuthContext";
 import ModulesPage from "@/modules/ModulesPage";
 import ModuleDetail from "@/modules/ModuleDetail";
 
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { CloudStatus } from "./components/CloudStatus";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -40,28 +43,29 @@ const App = () => (
           <AuthProvider>     
           {/* Wrap routes that need progress context inside ProgressProvider */}
           <ProgressProvider>
+            <CloudStatus />
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
-              <Route path="/dashboard/game" element={<GamePage />} />
+              <Route path="/dashboard/game" element={<ProtectedRoute><GamePage /></ProtectedRoute>} />
 
               {/* Dashboard Routes */}
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/dashboard/maps" element={<RiskMapPage />} />
+              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route path="/dashboard/maps" element={<ProtectedRoute><RiskMapPage /></ProtectedRoute>} />
 
               {/* Learning Modules Routes */}
-              <Route path="/dashboard/modules" element={<ModulesPage />} />
-              <Route path="/dashboard/modules/:id" element={<ModuleDetail />} />
+              <Route path="/dashboard/modules" element={<ProtectedRoute><ModulesPage /></ProtectedRoute>} />
+              <Route path="/dashboard/modules/:id" element={<ProtectedRoute><ModuleDetail /></ProtectedRoute>} />
 
               {/* Drills Routes */}
-              <Route path="/dashboard/drills" element={<Drills />} />
+              <Route path="/dashboard/drills" element={<ProtectedRoute><Drills /></ProtectedRoute>} />
 
               {/* Admin Dashboard with nested routes */}
-              <Route path="/dashboard/admin" element={<AdminDashboard alerts={[]} />}>
+              <Route path="/dashboard/admin" element={<ProtectedRoute roles={["administrator", "teacher"]}><AdminDashboard alerts={[]} /></ProtectedRoute>}>
                 <Route index element={<div></div>} />
-                <Route path="alerts" element={<MassAlerts />} />
-                <Route path="alerts/history" element={<MassAlertHistory />} />
+                <Route path="alerts" element={<ProtectedRoute roles={["administrator"]}><MassAlerts /></ProtectedRoute>} />
+                <Route path="alerts/history" element={<ProtectedRoute roles={["administrator"]}><MassAlertHistory /></ProtectedRoute>} />
                 <Route path="compliance" element={<Compliance />} />
               </Route>
 

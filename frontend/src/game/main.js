@@ -5,7 +5,7 @@ import endSceneImg from "../assets/q26.png";
 import { QUESTIONS } from "./questions.js";
 import * as fns from "./functions.js";
 
-export function initGame(container) {
+export function initGame(container, onComplete = () => {}) {
   if (!container) throw new Error("Container element not provided");
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   
@@ -152,6 +152,7 @@ game.onClick("howToButton", () => {
   // ---------------- END ----------------
 // In your main.js or endScene.js
 game.scene("end", () => {
+    onComplete({ score: gameState.score, total: gameState.totalQuestions });
 
     // Background sprite
     game.add([
@@ -256,5 +257,5 @@ game.scene("end", () => {
 //   fns.loadAssets(game);
   game.go("menu");
 
-  return { destroy: ()=>game.destroy() };
+  return { destroy: () => { game.quit(); container.replaceChildren(); } };
 }

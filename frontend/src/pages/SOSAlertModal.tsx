@@ -1,3 +1,7 @@
+import { useAuth } from '@/context/AuthContext';
+import { create } from '@/lib/cloud';
+import { removeRecord } from '@/lib/cloud';
+import { useCloud } from '@/hooks/useCloud';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -19,6 +23,8 @@ interface SOSAlertModalProps {
 
 export function SOSAlertModal({ isOpen, onClose }: SOSAlertModalProps) {
   const { t } = useTranslation();
+  const { schoolId } = useAuth();
+  const { rows: requests, error: requestsError } = useCloud('sosRequests', true);
   const [location, setLocation] = useState<LocationData>({
     latitude: null,
     longitude: null,
@@ -83,22 +89,13 @@ export function SOSAlertModal({ isOpen, onClose }: SOSAlertModalProps) {
     }
   };
 
-  const sendLocationToEmergencyServices = () => {
-    if (location.latitude && location.longitude) {
-      // Simulate sending to emergency services (in real app, this would be an API call)
-      console.log('Sending location to emergency services', { 
-        lat: location.latitude, 
-        lng: location.longitude 
-      });
-      
-      // Simulate API call
-      setIsGettingLocation(true);
-      setTimeout(() => {
-        setLocationSent(true);
-        setIsGettingLocation(false);
-        console.log('Location sent successfully to emergency services');
-      }, 2000);
-    }
+  const sendLocationToEmergencyServices = async () => {
+    if (!schoolId) { setLocationError('School assignment required.'); return; }
+    if (location.latitude === null || location.longitude === null) return;
+    setIsGettingLocation(true); setLocationError(null);
+    try { await create('sosRequests', schoolId, { latitude: location.latitude, longitude: location.longitude, accuracy: location.accuracy || 0, status: 'pending' }); setLocationSent(true); }
+    catch (e) { setLocationError(e.message); }
+    finally { setIsGettingLocation(false); }
   };
 
   const handleClose = () => {
@@ -120,7 +117,7 @@ export function SOSAlertModal({ isOpen, onClose }: SOSAlertModalProps) {
     <div className="fixed inset-0 bg-red-600/20 flex items-center justify-center z-50 p-4 emergency-modal-overlay">
       <div className="absolute inset-0 bg-red-500/10 animate-pulse"></div>
       
-      <Card className="glass-card w-full max-w-md border-0 relative z-10 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-950/30 dark:to-orange-950/30">
+      <Card className="glass-card w-full max-w-md max-h-[90vh] overflow-y-auto border-0 relative z-10 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-950/30 dark:to-orange-950/30">
         <CardHeader className="flex flex-row items-center justify-between border-b bg-gradient-to-r from-red-500 to-red-600 text-white">
           <CardTitle className="flex items-center text-white">
             <AlertTriangle className="h-6 w-6 mr-2 animate-pulse" />
@@ -137,6 +134,8 @@ export function SOSAlertModal({ isOpen, onClose }: SOSAlertModalProps) {
         </CardHeader>
         
         <CardContent className="p-6 space-y-4">
+          {requestsError && <p role="alert">{requestsError}</p>}
+          {requests.slice(0, 3).map(r => <div key={r.id} className="text-sm">My school request: {r.status} <button onClick={() => void removeRecord('sosRequests', r.id).catch(e => setLocationError(e.message))}>Delete location record</button></div>)}
           {/* Emergency Alert Message */}
           <div className="text-center space-y-3">
             <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
@@ -144,7 +143,7 @@ export function SOSAlertModal({ isOpen, onClose }: SOSAlertModalProps) {
             </div>
             
             <h3 className="text-xl font-bold text-red-600 dark:text-red-400">
-              {t("Emergency Services Alerted")}
+              {locationSent ? "School request recorded" : "Share SOS with your school"}
             </h3>
             
             <p className="text-gray-600 dark:text-gray-300">
@@ -171,18 +170,18 @@ export function SOSAlertModal({ isOpen, onClose }: SOSAlertModalProps) {
               ) : locationSent ? (
                 <div className="flex items-center text-green-600">
                   <CheckCircle className="h-4 w-4 mr-1" />
-                  Location Sent
+                  Request saved
                 </div>
               ) : (
                 <div className="flex items-center text-green-600">
                   <CheckCircle className="h-4 w-4 mr-1" />
-                  {t("Location Shared")}
+                  Location ready
                 </div>
               )}
             </div>
 
             {/* Location Details */}
-            {location.latitude && location.longitude && (
+            {location.latitude !== null && location.longitude !== null && (
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
                   <span className="text-gray-500 dark:text-gray-400">{t("latitude")}:</span>
@@ -204,7 +203,7 @@ export function SOSAlertModal({ isOpen, onClose }: SOSAlertModalProps) {
             )}
 
             {/* Send Location Button */}
-            {!locationSent && location.latitude && location.longitude && (
+            {!locationSent && location.latitude !== null && location.longitude !== null && (
               <Button
                 variant="emergency"
                 onClick={sendLocationToEmergencyServices}
@@ -212,7 +211,7 @@ export function SOSAlertModal({ isOpen, onClose }: SOSAlertModalProps) {
                 className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
               >
                 <Send className="h-4 w-4 mr-2" />
-                Send Location to Emergency Services
+                Send location to school administrator
               </Button>
             )}
 
@@ -235,12 +234,12 @@ export function SOSAlertModal({ isOpen, onClose }: SOSAlertModalProps) {
             <Button
               variant="outline"
               onClick={() => {
-                if (location.latitude && location.longitude) {
+                if (location.latitude !== null && location.longitude !== null) {
                   const url = `https://maps.google.com/?q=${location.latitude},${location.longitude}`;
                   window.open(url, '_blank');
                 }
               }}
-              disabled={!location.latitude || !location.longitude}
+              disabled={location.latitude === null || location.longitude === null}
               className="flex-1 border-red-200 text-red-600 hover:bg-red-50"
             >
               <MapPin className="h-4 w-4 mr-2" />
@@ -260,7 +259,7 @@ export function SOSAlertModal({ isOpen, onClose }: SOSAlertModalProps) {
           {/* Emergency Instructions */}
           <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-3">
             <p className="text-xs text-yellow-800 dark:text-yellow-200 text-center">
-              ⚠️ Your location has been shared with emergency services. Help is on the way.
+              This sends a private request to your school administrator. It does not dispatch emergency services. In an emergency, call 112.
             </p>
           </div>
         </CardContent>

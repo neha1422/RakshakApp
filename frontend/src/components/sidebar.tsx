@@ -1,3 +1,4 @@
+import { useAuth } from "@/context/AuthContext";
 import { useState } from "react"
 import { 
   Home, 
@@ -48,6 +49,7 @@ const adminItems = [
 
 export function AppSidebar() {
   const { state } = useSidebar()
+  const { role } = useAuth()
   const location = useLocation()
   const currentPath = location.pathname
   const isCollapsed = state === "collapsed"
@@ -73,7 +75,7 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
-              {learningItems.map((item) => (
+              {learningItems.filter(item => item.url !== "/dashboard/admin" || role !== "student").map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild className="w-full">
                     <NavLink to={item.url} end className={getNavCls}>
