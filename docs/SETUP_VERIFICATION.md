@@ -1,5 +1,7 @@
 # Completed cloud setup — 14 November 2026
 
+> Historical verification checkpoint. For the current public deployment and classroom evidence, see README.md, PUBLISHED.md and TEACHER_WALKTHROUGH.md. Later deployment does not change which commands were run at this checkpoint.
+
 The existing app now runs locally against the owner's newly authorized Firebase project `rakshakapp-cloud`.
 
 ## Completed

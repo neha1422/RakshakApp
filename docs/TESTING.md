@@ -1,5 +1,7 @@
 # Verification record — 14 November 2026
 
+> Historical verification checkpoint. For the current public deployment and classroom evidence, see README.md, PUBLISHED.md and TEACHER_WALKTHROUGH.md. Later deployment does not change which commands were run at this checkpoint.
+
 Executed locally on macOS arm64, Node 25.9.0/npm 11.12.1. The project deployment recommendation is Node 22 or 24; the host emitted engine warnings. A temporary Temurin Java 21 runtime was used for emulator tests because system Java was absent. Firebase CLI 15.36.x downloaded Firestore emulator 1.22.0. Vitest 4.1.12 was used for final tests.
 
 | Command, from frontend | Actual result |

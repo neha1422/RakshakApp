@@ -1,19 +1,81 @@
-# Setup and deployment
+# Current setup and deployment guide
 
-No deployment, merge, production secret change, catalog seed or live account provisioning was performed by this upgrade. The steps below require the owner's review and explicit deployment approval.
+Live app: https://rakshakapp-cloud.vercel.app/
+Vercel project: `neha-mongias-projects/rakshakapp-cloud`.
+Firebase project: `rakshakapp-cloud`; Firestore Standard `(default)`, Mumbai (`asia-south1`).
 
-1. Keep the existing repository and Vercel project. Use branch `feat/cloud-full-stack` for review. Confirm Vercel Root Directory is `frontend` and Node 22 or 24 is supported by the selected runtime/toolchain. Do not create a second project.
-2. In Firebase project `punjab-prepared-ecosystem`, inspect the existing Firestore database and rules before making changes. If absent, create the database in the chosen location after reviewing privacy/billing implications. This location cannot be inferred from repository source.
-3. Copy `frontend/.env.example` to `frontend/.env.local` locally. Obtain public web configuration from the existing Firebase app. Enable only the existing authorized Google/email-password login providers as appropriate. Add the actual Vercel preview/production hosts to Firebase Auth Authorized Domains; confirm Google provider OAuth configuration. Never share private keys in chat.
-4. Configure `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` as backend-only Vercel environment variables. Use a restricted service account with only the necessary Firebase Auth administration and Firestore access. Private key literal `\n` escapes are normalized on the backend. Do not use any `VITE_` prefix for server credentials. Preview and production scopes need separate review.
-5. Run `cd frontend && npm ci`, `npm run build`, `npm run typecheck`, `npm test`. Use `vercel dev` from `frontend` for the same-origin API locally; `npm run dev` alone runs Vite without the privileged API. No production API points to localhost. The Node API is `frontend/api/cloud.js` and SPA rewrites are in `frontend/vercel.json`.
-6. Run emulator security tests before approving database rules. Install Java 21+ on PATH, then `cd frontend && npm run test:rules`. The script explicitly uses `demo-rakshak`, never the production project. It uses Firestore port 8085.
-7. **After explicit approval**, from repository root deploy only reviewed rules/indexes: `npx --prefix frontend firebase deploy --only firestore:rules,firestore:indexes --project punjab-prepared-ecosystem`. Wait until composite indexes finish building. Rules may alter existing access; inspect current production usage first.
-8. **After approval**, run `cd frontend && npm run seed:catalog -- --confirm` in an authorized operator environment with backend credentials loaded. It creates only missing `learningModules`, `quizzes` and `quizKeys`; it does not overwrite existing catalog or users. Verify matching public questions/private answer keys if documents existed previously. `.env.local` is not automatically loaded by these CLI scripts: explicitly load it in your trusted shell/tool without printing secrets.
-9. Create demo users through existing Firebase login or the Firebase console. Use non-sensitive test accounts, not default passwords. For each existing UID run `npm run provision -- UID SCHOOL_ID student --confirm`, similarly `teacher` and `administrator`. This creates missing school/profile records and sets trusted claims, refuses changing an existing role/school, and never overwrites an existing Auth user. Administrator bootstrap requires project-owner credentials; web users cannot self-promote. Do not commit credentials or demonstration passwords.
-10. Sign out/in to refresh role claims. **After deployment approval**, deploy the reviewed branch to the existing Vercel project. A Git push may trigger Vercel automatically, so review deployment integration before pushing. Verify preview first, then approve production promotion.
-11. Execute DEMO_SCRIPT.md in two browsers, test a direct `/dashboard/modules/1` refresh, inspect API error states, and confirm a student cannot access staff routes or another school's data. Verify mobile layout and existing map, game, translations, speech and PDF export. Browser geolocation/speech permissions and voice availability depend on the browser/device.
+The owner explicitly approved this new cloud target because the original resources were inaccessible to the signed-in accounts. The application code and design were preserved. The original Firebase/Vercel resources were not changed. The production app is already deployed; you do not need to repeat the initial setup to use it.
 
-## Remaining external verification
+## Use the published app
 
-Actual Firebase config, enabled providers, allowed domains, database region, service account IAM, deployed rules/indexes, existing catalog compatibility, billing/quota limits and Vercel project settings remain owner tasks. There is no need to enable Firebase Cloud Functions for this implementation; the trusted alternative is the Vercel API. Do not treat a successful static build as proof the cloud configuration works.
+Open the public URL and sign in. The owner's assigned Google login is administrator for demo-school. New registrations are initially unassigned: an administrator must assign Student/Teacher membership through the trusted backend before school data is accessible. See TEACHER_WALKTHROUGH.md for those steps.
+
+## Run the same app locally
+
+Use Node 22 or 24. From the repository's frontend folder:
+
+```sh
+npm ci
+# Fresh checkout only: copy .env.example to .env.local, then fill its values.
+npm run dev:full
+```
+
+Open http://localhost:8081. The runner loads `.env.local` and serves frontend plus the same API handler. `npm run dev` starts the frontend only. Avoid overwriting your working `.env.local`.
+
+Six public settings identify the Firebase web application: `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIREBASE_MESSAGING_SENDER_ID`, `VITE_FIREBASE_APP_ID`. Get them from the existing Firebase web app's Project settings. Public web configuration does not grant database privileges.
+
+Three server settings configure the trusted backend: `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`. Keep them in ignored local configuration and Vercel server Secrets. Never prefix private credentials with VITE_, commit a service-account JSON, or show a private key in a presentation. Literal private-key newline escapes are normalized by the backend.
+
+## Publish reviewed code updates
+
+1. Make changes on a separate branch and inspect the diff. Keep environment files, `.vercel` metadata and credentials out of Git.
+2. From frontend, run the checks:
+
+```sh
+npm run build
+npm run typecheck
+npm test
+# Java 21+ required; deliberately uses demo-rakshak, not live data:
+npm run test:rules
+```
+
+3. Sign in and link the existing Vercel project if this checkout is not already linked:
+
+```sh
+npx vercel@latest login
+npx vercel@latest link --yes --project rakshakapp-cloud --scope neha-mongias-projects
+```
+
+4. Review Vercel Environment Variables. Public web values are Config; the three backend values are server Secrets. Production is configured; additional preview environments need their own reviewed configuration.
+5. Publish to production when approved:
+
+```sh
+npx vercel@latest deploy --prod --scope neha-mongias-projects
+```
+
+6. Wait for Ready. Verify the public page, direct dashboard-route refresh, Google login, cloud results and the API. Production domain `rakshakapp-cloud.vercel.app` is already in Firebase Authentication's authorized domains. A different public hostname must also be authorized.
+
+The CLI uploads frontend as the application root. Vercel uses Vite, Node 24, `npm run build`, output `dist`, and `frontend/api/cloud.js`; dashboard/auth SPA routes are handled by `frontend/vercel.json`. Source upload exclusions are in `frontend/.vercelignore`.
+
+GitHub pushes do not currently auto-deploy this project. This deployment used the CLI, and the source branch was pushed separately. No merge to main or automatic Git integration is required for this workflow.
+
+## Database rules, indexes and catalog maintenance
+
+The current rules are published, all sixteen query index shapes are ready, and eight module/quiz/key sets are seeded. Do not repeat these writes just to demonstrate the database.
+
+For future reviewed rules/index changes, use an appropriately authorized owner CLI session or approved SDK setup operation. From the repository root, an owner CLI workflow is:
+
+```sh
+./frontend/node_modules/.bin/firebase login
+./frontend/node_modules/.bin/firebase deploy --only firestore:rules,firestore:indexes --project rakshakapp-cloud
+```
+
+The backend service account does not retain the temporary index-management role used during setup. An account that can read/write application data need not be allowed to manage indexes or Google Cloud service APIs. Do not broaden credentials merely to make a deployment command succeed.
+
+`seed-catalog.ts` creates missing catalog documents without overwriting existing ones. `provision.mjs` assigns existing Auth UIDs and refuses changing an established role/school. Both require explicitly loaded backend configuration and `--confirm`; treat them as trusted operator tools, not student actions.
+
+## What was verified and what remains
+
+Production Google login, backend quiz grading, persisted student result, real independent-client alerts, private answer-key denial, indexed queries, build and type checks were verified. See PUBLISHED.md and SETUP_VERIFICATION.md for details. The earlier TESTING.md records initial unit/emulator results and baseline limitations.
+
+Backups, monitoring, App Check enforcement, rate limits, retention, load capacity and guaranteed availability are not configured or claimed. Firebase Spark and Vercel Hobby impose quotas; review current provider usage and plan requirements before institutional operation. No Cloud Functions service is needed for this implementation because Vercel supplies the privileged backend.

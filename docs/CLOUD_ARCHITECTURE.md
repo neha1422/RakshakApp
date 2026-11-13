@@ -1,6 +1,8 @@
 # Cloud architecture
 
-RakshakApp keeps its existing React/Vite interface. Firebase project: `punjab-prepared-ecosystem`. The intended deployment uses the existing Vercel project with Root Directory `frontend`; no new hosting project is required.
+RakshakApp keeps its existing React/Vite interface. The owner-approved current Firebase project is `rakshakapp-cloud`; the published Vercel app is https://rakshakapp-cloud.vercel.app/. The CLI uploads the existing frontend folder as the application root. The original cloud resources were not modified.
+
+![Current architecture](assets/cloud-architecture.svg)
 
 ```mermaid
 flowchart TD
