@@ -11,14 +11,13 @@ import { NavLink } from "react-router-dom";
 interface SidebarProps {
   openSidebarToggle: boolean;
   OpenSidebar: () => void;
-  darkMode?: boolean;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar, darkMode = false }) => {
+const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => {
   return (
     <aside
       id="sidebar"
-      className={`sidebar ${openSidebarToggle ? "sidebar-open" : ""} ${darkMode ? "dark" : ""}`}
+      className={`sidebar ${openSidebarToggle ? "sidebar-open" : ""}`}
     >
       {/* Sidebar Header */}
       <div className="sidebar-title">

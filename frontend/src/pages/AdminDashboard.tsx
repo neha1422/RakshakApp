@@ -2,15 +2,14 @@ import { useAuth } from '@/context/AuthContext';
 import { useCloud } from '@/hooks/useCloud';
 import { create } from '@/lib/cloud';
 import { SchoolAdminTools } from '@/components/SchoolAdminTools';
-import React, { useState, useEffect } from "react";
+import { ThemeToggle } from '@/components/theme-toggle';
+import React, { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import {
   BsPeopleFill,
  BsFileEarmarkTextFill,
-  BsFillBellFill,
-  BsMoon,
-  BsSun
+  BsFillBellFill
 } from "react-icons/bs";
 import "../AdminDashboard.css";
 import {
@@ -31,7 +30,6 @@ interface AdminDashboardProps {
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ alerts: initialAlerts }) => {
   const [openSidebar, setOpenSidebar] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const { schoolId, role } = useAuth();
   const { rows: alerts, error: alertError } = useCloud('alerts');
   const { rows: results, error: resultError } = useCloud('quizResults');
@@ -43,31 +41,23 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ alerts: initialAlerts }
   const isHistoryPage = location.pathname.includes("/dashboard/admin/alerts/history");
 
 
-  useEffect(() => {
-    document.body.classList.remove("light-theme", "dark-theme");
-    document.body.classList.add(darkMode ? "dark-theme" : "light-theme");
-  }, [darkMode]);
-
   const incrementAlertCount = async (emergency: string, message: string) => {
     if (!schoolId) throw new Error('School assignment required');
     await create('alerts', schoolId, { emergency, message: message.trim(), active: true });
   };
 
   const toggleSidebar = () => setOpenSidebar(!openSidebar);
-  const toggleDarkMode = () => setDarkMode(!darkMode);
 
   const preparednessData = Object.entries(results.reduce((groups, r) => { const key = `Module ${r.quizId}`; (groups[key] ||= []).push(r.percent); return groups; }, {} as Record<string, number[]>)).map(([label, scores]) => ({ class: label, score: Math.round(scores.reduce((a,b) => a+b, 0) / scores.length) }));
 
   return (
-    <div className="grid-container">
-      <Sidebar openSidebarToggle={openSidebar} OpenSidebar={toggleSidebar} darkMode={darkMode} />
+    <div className="admin-dashboard grid-container">
+      <Sidebar openSidebarToggle={openSidebar} OpenSidebar={toggleSidebar} />
 
       <header className="header">
         <span className="menu-icon" onClick={toggleSidebar}>☰</span>
         <h1>Admin Dashboard</h1>
-        <button className="darkmode-toggle" onClick={toggleDarkMode}>
-          {darkMode ? <BsSun size={20} /> : <BsMoon size={20} />}
-        </button>
+        <ThemeToggle />
       </header>
 
       <main className="main-container">
@@ -109,9 +99,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ alerts: initialAlerts }
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={preparednessData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="class" />
-                    <YAxis />
-                    <Tooltip />
+                    <XAxis dataKey="class" tick={{ fill: "var(--text-color)" }} />
+                    <YAxis tick={{ fill: "var(--text-color)" }} />
+                    <Tooltip contentStyle={{ background: "var(--card-bg)", color: "var(--text-color)", borderColor: "hsl(var(--border))" }} itemStyle={{ color: "var(--text-color)" }} cursor={{ fill: "hsl(var(--muted))" }} />
                     <Bar dataKey="score" fill="#82ca9d" />
                   </BarChart>
                 </ResponsiveContainer>
@@ -119,10 +109,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ alerts: initialAlerts }
             </div>
           </>
         )}
-        {/* Pass the functions, darkMode state, and alertHistory to the Outlet */}
+        {/* Share school activity and actions with nested admin pages. */}
         <Outlet context={{ 
             incrementAlertCount, 
-            darkMode, 
             alertHistory, alerts, results, average, schoolId,
 
         }} />

@@ -1,24 +1,11 @@
 // src/components/chatbot/ChatWidget.tsx
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ChatWindow from "./ChatWindow";
 import { MessageCircle } from "lucide-react"; // ✅ Correct icon
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(true);
-  const [themeDark, setThemeDark] = useState<boolean>(() => {
-    try {
-      return localStorage.getItem("theme") === "dark";
-    } catch {
-      return false;
-    }
-  });
-
-  useEffect(() => {
-    try {
-      localStorage.setItem("theme", themeDark ? "dark" : "light");
-    } catch {}
-  }, [themeDark]);
 
   return (
     <div className="fixed right-6 bottom-6 z-50 flex flex-col items-end gap-3">

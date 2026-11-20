@@ -12,14 +12,13 @@ interface AlertRecord {
 }
 
 interface OutletContext {
-  darkMode: boolean;
   alertHistory: AlertRecord[];
   setAlertHistory: React.Dispatch<React.SetStateAction<AlertRecord[]>>;
   clearAllAlerts: () => void;
 }
 
 export default function MassAlertHistory() {
-  const { darkMode, alertHistory } = useOutletContext<OutletContext>();
+  const { alertHistory } = useOutletContext<OutletContext>();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterEmergency, setFilterEmergency] = useState("All");
   const [filteredAlerts, setFilteredAlerts] = useState<AlertRecord[]>([]);

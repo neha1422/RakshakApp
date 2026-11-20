@@ -13,7 +13,6 @@ interface AlertRecord {
 }
 
 interface OutletContext {
-  darkMode: boolean;
   alertHistory: AlertRecord[];
   alerts: CloudRecord[];
   results: CloudRecord[];

@@ -3,7 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import MessageBubble, { From } from "./MessageBubble";
 import guidelines from "@/data/ndma-guidelines.json";
 import directory from "@/data/emergency-directory.json";
-import { Sun, Moon, X } from "lucide-react";
+import { X } from "lucide-react";
+
+import { useTheme } from "next-themes";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 type Lang = "en" | "hi" | "pa";
 
@@ -29,13 +32,8 @@ export default function ChatWindow({ onClose, initialLang = "en" }: Props) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [lang, setLang] = useState<Lang>(initialLang);
-  const [dark, setDark] = useState<boolean>(() => {
-    try {
-      return localStorage.getItem("theme") === "dark";
-    } catch {
-      return false;
-    }
-  });
+  const { resolvedTheme } = useTheme();
+  const dark = resolvedTheme === "dark";
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -45,17 +43,6 @@ export default function ChatWindow({ onClose, initialLang = "en" }: Props) {
     setMessages([{ from: "bot", text: greeting, ts: Date.now() }]);
   }, []);
 
-  useEffect(() => {
-    try {
-      if (dark) {
-        document.documentElement.classList.add("dark");
-        localStorage.setItem("theme", "dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-        localStorage.setItem("theme", "light");
-      }
-    } catch {}
-  }, [dark]);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -174,13 +161,7 @@ export default function ChatWindow({ onClose, initialLang = "en" }: Props) {
             <option value="pa">ਪੰਜਾਬੀ</option>
           </select>
 
-          <button
-            onClick={() => setDark((s) => !s)}
-            className="p-1 rounded-md hover:bg-muted/50"
-            title="Toggle theme"
-          >
-            {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </button>
+          <ThemeToggle />
 
           <button onClick={onClose} title="Close" className="p-1 rounded-md hover:bg-muted/50">
             <X className="h-4 w-4" />

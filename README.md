@@ -229,7 +229,7 @@ GitHub stores source. This project was published using the Vercel CLI; a GitHub 
 
 ## 9. Testing, scalability and availability
 
-Verified: production Google login; real cloud alert delivery between independent clients; authenticated backend quiz grading; persisted result readable by its student; denial of private answer-key access; working indexed query shapes; production build and TypeScript checks. The unit suite passed 16 tests; a separate emulator run passed 9 security/synchronization tests. `npm test` skips emulator tests unless run under the emulator. See [TESTING.md](docs/TESTING.md), [SETUP_VERIFICATION.md](docs/SETUP_VERIFICATION.md) and [PUBLISHED.md](docs/PUBLISHED.md) for scope and checkpoints.
+Verified: production Google login; real cloud alert delivery between independent clients; authenticated backend quiz grading; persisted result readable by its student; denial of private answer-key access; working indexed query shapes; production build and TypeScript checks. The application suite passed 20 tests; a separate emulator run passed 9 security/synchronization tests. `npm test` skips emulator tests unless run under the emulator. See [TESTING.md](docs/TESTING.md), [SETUP_VERIFICATION.md](docs/SETUP_VERIFICATION.md) and [PUBLISHED.md](docs/PUBLISHED.md) for scope and checkpoints.
 
 Queries filter by school/user, sort by server timestamps and cap live feeds at 100 records. Quiz history supports cursor pagination. Listeners unsubscribe on unmount or identity change. These are cloud-friendly design choices, not a completed load test. Vercel/Firebase manage infrastructure, while actual quotas, plans, outages and network conditions still matter. The project is on Firebase Spark; unlimited usage, guaranteed uptime, configured backups or multi-region recovery are not claimed.
 
@@ -266,3 +266,7 @@ Developed by Team RakshakApp. The historical README is retained for provenance; 
 ## Current release — 20 November 2026
 
 Virtual drills have been removed from routes, navigation, dashboards, reports, translations and client database permissions. Retired drill records, if present, are inaccessible to app clients. The app continues to support modules, quizzes, games, school alerts, map advisories and private SOS requests. Two school administrators have been provisioned through trusted Firebase Admin tooling; sign out and sign back in after a role change.
+
+### Shared website theme
+
+The main dashboard, administrator pages and guide bot use one saved light/dark theme. Choosing a theme anywhere keeps that selection when navigating between pages and after refreshing. With no explicit choice, the app follows the device theme. Administrator surfaces and form fields use the shared design colors.

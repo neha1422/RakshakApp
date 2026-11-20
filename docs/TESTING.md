@@ -30,3 +30,7 @@ An early realtime test timed out because it wrote before establishing listener r
 ## Not run or not verified
 
 Live Firebase provider/domain login, Vercel function deployment/IAM, actual deployed indexes/rules, production two-browser demo, visual mobile QA, load/chaos testing, backup restore and live PDF download were not verified. Public deployment retrieval through the available web tool failed. No production credentials, seed writes, account changes, merges or deployments were made. Follow DEPLOYMENT.md and DEMO_SCRIPT.md after approval.
+
+## Theme consistency update — 20 November 2026
+
+The application suite now includes four theme regression cases: light/dark navigation into and out of the administrator dashboard, saved-theme restoration after remounting, toggling from the system theme, and opening/toggling the guide bot without creating a separate theme. The suite passes 20 application tests; the 9 Firestore emulator tests are separate and were not changed by this UI update. TypeScript and production build checks pass.
