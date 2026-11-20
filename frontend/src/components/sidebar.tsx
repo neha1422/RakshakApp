@@ -4,7 +4,6 @@ import {
   Home, 
   Map, 
   BookOpen, 
-  Shield, 
   UserCog,
   Settings,
   Joystick ,
@@ -33,7 +32,6 @@ const learningItems = [
   { title: "Risk Maps", url: "/dashboard/maps", icon: Map },
   { title: "Learning Modules", url: "/dashboard/modules", icon: BookOpen },
   { title: "Play Game", url: "/dashboard/game" ,icon:Joystick },
-  { title: "Virtual Drills", url: "/dashboard/drills", icon: Shield },
   { title: "Admin Dashboard", url: "/dashboard/admin", icon: UserCog },
 ]
 

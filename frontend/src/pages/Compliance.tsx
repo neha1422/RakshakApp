@@ -17,13 +17,12 @@ interface OutletContext {
   alertHistory: AlertRecord[];
   alerts: CloudRecord[];
   results: CloudRecord[];
-  drillResults: CloudRecord[];
   average: number;
   schoolId: string;
 }
 
 const Compliance: React.FC = () => {
-  const { alertHistory, alerts, results, drillResults, average, schoolId } = useOutletContext<OutletContext>();
+  const { alertHistory, alerts, results, average, schoolId } = useOutletContext<OutletContext>();
   const [isGenerating, setIsGenerating] = useState(false);
 
   const generatePDF = () => {
@@ -48,7 +47,6 @@ const Compliance: React.FC = () => {
       doc.text("KEY METRICS", 20, 60);
       doc.setFontSize(12);
       
-      doc.text(`Drill completions (latest 100): ${drillResults.length}`, 20, 70);
       doc.text(`Average quiz score (latest 100): ${average}%`, 20, 80);
       doc.text(`Quiz attempts (latest 100): ${results.length}`, 20, 90);
       doc.text(`Mass Alerts Sent: ${alerts.length}`, 20, 100);

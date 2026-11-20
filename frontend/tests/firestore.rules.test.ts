@@ -53,15 +53,17 @@ describe.skipIf(!enabled)('Firestore permissions and synchronization', () => {
     await assertSucceeds(getDoc(doc(ctx('admin','administrator'),'sosRequests/sos')));
     await assertFails(getDoc(doc(ctx('admin','administrator','b'),'sosRequests/sos')));
   });
-  it('requires staff schedules and one private participation record per student', async () => {
-    const schedule={...record('teacher'),topic:'fire',title:'Practice',startedAt:new Date().toISOString(),completion_time:new Date(Date.now()+120000).toISOString()};
-    await assertFails(setDoc(doc(ctx('student'),'drills/drill'),{...schedule,userId:'student'}));
-    await assertSucceeds(setDoc(doc(ctx('teacher','teacher'),'drills/drill'),schedule));
-    const result={...record(),drillId:'drill',completedAt:new Date().toISOString(),durationSeconds:60};
-    await assertSucceeds(setDoc(doc(ctx('student'),'drillResults/student_drill'),result));
-    await assertFails(setDoc(doc(ctx('student'),'drillResults/student_drill'),{...result,durationSeconds:0}));
-    await assertFails(getDoc(doc(ctx('other'),'drillResults/student_drill')));
-    await assertSucceeds(getDoc(doc(ctx('teacher','teacher'),'drillResults/student_drill')));
+  it('denies access to retired virtual drill collections for all client roles', async () => {
+    await env.withSecurityRulesDisabled(async c => {
+      await setDoc(doc(c.firestore(),'drills/retired'),{schoolId:'a',userId:'student'});
+      await setDoc(doc(c.firestore(),'drillResults/retired'),{schoolId:'a',userId:'student'});
+    });
+    for (const [uid, role] of [['student','student'],['teacher','teacher'],['admin','administrator']]) {
+      for (const name of ['drills','drillResults']) {
+        await assertFails(getDoc(doc(ctx(uid,role),`${name}/retired`)));
+        await assertFails(setDoc(doc(ctx(uid,role),`${name}/new`),{...record(uid)}));
+      }
+    }
   });
   it('validates game score bounds and owner isolation', async () => {
     const result={...record(),gameId:'disaster-quest',score:4,total:3,badge:'completed'};

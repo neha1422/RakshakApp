@@ -10,7 +10,7 @@ Role claims refresh on token refresh/sign-in. After provisioning, sign out and b
 
 ## Abuse and privacy limits
 
-Client game scores and drill duration are self-reported and not suitable for rewards or certification. Completion of reading can be self-marked; quiz grades remain server-authoritative. Alerts and SOS writes are authenticated but are not globally rate-limited. Before public institutional operation, configure App Check/enforcement where supported, server-side quotas/rate limiting, audit retention, access reviews, consent, SOS deletion policy, monitoring and credential rotation. These controls are future operational work, not claimed as configured.
+Client game scores are self-reported and not suitable for rewards or certification. Completion of reading can be self-marked; quiz grades remain server-authoritative. Alerts and SOS writes are authenticated but are not globally rate-limited. Before public institutional operation, configure App Check/enforcement where supported, server-side quotas/rate limiting, audit retention, access reviews, consent, SOS deletion policy, monitoring and credential rotation. These controls are future operational work, not claimed as configured.
 
 The app records school requests; it does not contact emergency dispatch or guarantee monitoring. Do not put real minors' locations in a classroom demonstration. Use synthetic data. Users/admins can delete SOS location records; backups and log retention, if later configured, require separate lifecycle policies.
 

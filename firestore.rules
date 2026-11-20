@@ -29,15 +29,6 @@ service cloud.firestore {
       allow update: if administrator() && school(resource.data) && unchangedIdentity() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['message','active','updatedAt']) && request.resource.data.message is string && request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 2000 && request.resource.data.active is bool;
       allow delete: if administrator() && school(resource.data);
     }
-    match /drills/{id} {
-      allow read: if school(resource.data);
-      allow create: if staff() && newRecord() && request.resource.data.keys().hasOnly(['schoolId','userId','title','topic','startedAt','completion_time','createdAt','updatedAt']) && request.resource.data.topic in ['earthquake','fire','flood'] && request.resource.data.title is string && request.resource.data.title.size() <= 200 && request.resource.data.startedAt is string && request.resource.data.completion_time is string;
-      allow delete: if staff() && school(resource.data);
-    }
-    match /drillResults/{id} {
-      allow read: if readPrivate();
-      allow create: if newRecord() && request.resource.data.keys().hasOnly(['schoolId','userId','drillId','completedAt','durationSeconds','createdAt','updatedAt']) && request.resource.data.drillId is string && id == request.auth.uid + '_' + request.resource.data.drillId && get(/databases/$(database)/documents/drills/$(request.resource.data.drillId)).data.schoolId == request.auth.token.schoolId && request.resource.data.durationSeconds is number && request.resource.data.durationSeconds >= 0 && request.resource.data.durationSeconds <= 86400 && request.resource.data.completedAt is string;
-    }
     match /gameProgress/{id} {
       allow read: if readPrivate();
       allow create: if newRecord() && request.resource.data.keys().hasOnly(['schoolId','userId','gameId','score','total','badge','createdAt','updatedAt']) && request.resource.data.gameId == 'disaster-quest' && request.resource.data.score is int && request.resource.data.total is int && request.resource.data.total > 0 && request.resource.data.total <= 100 && request.resource.data.score >= 0 && request.resource.data.score <= request.resource.data.total && request.resource.data.badge in ['completed','safety-star'];

@@ -16,7 +16,6 @@ import AdminDashboard from "./pages/AdminDashboard";
 import MassAlerts from "./pages/MassAlerts";
 import MassAlertHistory from "./pages/MassAlertHistory";
 import Compliance from "./pages/Compliance";
-import Drills from "./pages/Drills";
 import { AuthProvider } from "./context/AuthContext";
 
 // Learning Modules Pages
@@ -57,9 +56,6 @@ const App = () => (
               {/* Learning Modules Routes */}
               <Route path="/dashboard/modules" element={<ProtectedRoute><ModulesPage /></ProtectedRoute>} />
               <Route path="/dashboard/modules/:id" element={<ProtectedRoute><ModuleDetail /></ProtectedRoute>} />
-
-              {/* Drills Routes */}
-              <Route path="/dashboard/drills" element={<ProtectedRoute><Drills /></ProtectedRoute>} />
 
               {/* Admin Dashboard with nested routes */}
               <Route path="/dashboard/admin" element={<ProtectedRoute roles={["administrator", "teacher"]}><AdminDashboard alerts={[]} /></ProtectedRoute>}>

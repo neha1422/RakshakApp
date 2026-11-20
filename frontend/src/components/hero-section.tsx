@@ -63,7 +63,7 @@ export function HeroSection() {
         </div>
 
         {/* Feature Icons */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 animate-fade-in">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 animate-fade-in">
           <div className="glass-card p-6 rounded-2xl hover-glow">
             <Map className="h-8 w-8 text-primary mx-auto mb-3" />
             <h3 className="font-semibold mb-2">{t("hero.features.riskMaps.title")}</h3>
@@ -78,11 +78,6 @@ export function HeroSection() {
             <Users className="h-8 w-8 text-success mx-auto mb-3" />
             <h3 className="font-semibold mb-2">{t("hero.features.learning.title")}</h3>
             <p className="text-sm text-muted-foreground">{t("hero.features.learning.desc")}</p>
-          </div>
-          <div className="glass-card p-6 rounded-2xl hover-glow">
-            <Shield className="h-8 w-8 text-emergency mx-auto mb-3" />
-            <h3 className="font-semibold mb-2">{t("hero.features.drills.title")}</h3>
-            <p className="text-sm text-muted-foreground">{t("hero.features.drills.desc")}</p>
           </div>
         </div>
       </div>

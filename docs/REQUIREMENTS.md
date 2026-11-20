@@ -5,7 +5,7 @@ Verified implementation/deployment checkpoint: 14 November 2026. This table dist
 
 | # | Assignment requirement | Evidence to show | Status and limits |
 |---|---|---|---|
-| 1 | Education-domain real-world problem | School disaster curriculum, modules, quizzes, drills; PROJECT_REPORT.md | Implemented educational platform |
+| 1 | Education-domain real-world problem | School disaster curriculum, modules and quizzes; PROJECT_REPORT.md | Implemented educational platform |
 | 2 | Responsive frontend | Existing responsive React/Tailwind layouts, app on a phone-sized browser | Design retained; exhaustive device/accessibility audit not performed |
 | 3 | Functional cloud backend | `frontend/api/cloud.js`; deployed authenticated grading | Real production grading/persistence verified |
 | 4 | Firebase Authentication | Console → Authentication → Users / Sign-in method | Google and email/password enabled; production Google login verified |
@@ -30,7 +30,7 @@ Verified implementation/deployment checkpoint: 14 November 2026. This table dist
 | Cloud SDK and queries | `frontend/src/lib/cloud.ts`, `hooks/useCloud.ts`, `firestore.indexes.json` |
 | Modules and quizzes | `frontend/src/modules/ModuleDetail.tsx`, `modules/ProgressContext.tsx`, `components/QuizHistory.tsx`, `frontend/api/cloud.js`, `frontend/server/policy.js` |
 | Alerts and staff statistics | `frontend/src/pages/MassAlerts.tsx`, `MassAlertHistory.tsx`, `AdminDashboard.tsx`, `components/LiveAlerts.tsx` |
-| Games and drills | `frontend/src/game/main.js`, `pages/GamePage.tsx`, `components/drills/DrillContext.jsx` and runner/dashboard components |
+| Game | `frontend/src/game/main.js`, `pages/GamePage.tsx` |
 | SOS and administration | `frontend/src/pages/SOSAlertModal.tsx`, `components/SchoolAdminTools.tsx` |
 | Map and guide tools | `frontend/src/pages/RiskMapPage.tsx`, `components/chatbot`, `hooks/useEmergencyTools.ts` |
 | Deployment and rules | `frontend/vercel.json`, `frontend/.vercelignore`, `firestore.rules`, `firebase.json` |

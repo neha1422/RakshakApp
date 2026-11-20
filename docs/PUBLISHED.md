@@ -24,7 +24,7 @@ The owner explicitly approved publishing this existing app under their own Verce
 1. Vercel sends the website pages to the visitor's browser.
 2. Firebase Authentication handles Google or email/password sign-in.
 3. Trusted role and school claims determine which parts of the app the person can use. New signups need a trusted school assignment before accessing school data.
-4. Firestore stores alerts, learning progress, scores, drill participation and private school SOS requests. Security Rules check who can read or change each record.
+4. Firestore stores alerts, learning progress, scores and private school SOS requests. Security Rules check who can read or change each record.
 5. Quiz submissions go to the Vercel backend, which verifies the login, checks private answer keys and saves the grade. Private credentials never belong in browser code.
 6. Firestore listeners automatically update authorized screens when alerts or results change.
 

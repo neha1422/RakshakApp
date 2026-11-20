@@ -1,6 +1,6 @@
 # RakshakApp — School Disaster Preparedness in the Cloud
 
-RakshakApp helps students learn disaster safety, practise through quizzes, games and virtual drills, and receive school advisories. Teachers and administrators can monitor school activity. It addresses a real **Education-domain** problem: making school disaster preparedness repeatable, accessible and trackable.
+RakshakApp helps students learn disaster safety, practise through quizzes and games, and receive school advisories. Teachers and administrators can monitor school activity. It addresses a real **Education-domain** problem: making school disaster preparedness repeatable, accessible and trackable.
 
 **[Open the live application](https://rakshakapp-cloud.vercel.app/)** · **[Administrator dashboard](https://rakshakapp-cloud.vercel.app/dashboard/admin)** · **[Teacher presentation guide](docs/TEACHER_WALKTHROUGH.md)** · **[Assignment checklist](docs/REQUIREMENTS.md)**
 
@@ -74,9 +74,8 @@ flowchart LR
 | Learning | Eight EN/HI/PA disaster modules, saved completion state | Reading content remains static reference material |
 | Quizzes | Published cloud questions, server-side grading, saved history and pagination | Private keys cannot be read by student clients |
 | Educational game | Existing Kaplay game, saved scores and badges | Game scores are self-reported, not secure examinations |
-| Virtual drills | Staff schedules, shared school timelines, runner instructions and participation results | Duration/participation are self-reported; physical safety is not verified |
 | School alerts | Administrator create/read/edit/delete; live school delivery | School communication, not a public emergency broadcast service |
-| Staff dashboard | Real recent-record statistics and quiz/drill charts | Summarizes the latest 100 records per collection |
+| Staff dashboard | Real recent-record statistics and quiz charts | Summarizes the latest 100 records per collection |
 | Punjab risk map | Existing district map and filters; configurable school advisories | District reference data is static; no live weather or sensor feed |
 | SOS | Private school location request, administrator acknowledgement/resolution and deletion | Does not dispatch police, ambulance or other emergency services |
 | Guide bot / voice | Multilingual guideline lookup and browser speech features | No external LLM, OpenAI or Whisper integration is claimed |
@@ -133,12 +132,12 @@ quizResults/                    collection
 
 This is an illustrative document shape, not a credential or an actual account UID.
 
-Firestore normally shows a collection in the Data tab only after it has a document. An empty `alerts`, `drills`, `gameProgress` or `sosRequests` collection may not be visible yet. An empty screen is not proof that its feature is missing.
+Firestore normally shows a collection in the Data tab only after it has a document. An empty `alerts`, `gameProgress` or `sosRequests` collection may not be visible yet. An empty screen is not proof that its feature is missing.
 
 ### C. Show database security and indexing
 
 - **Rules:** find the checks for `role`, `schoolId` and `userId`, and the denial of client access to `quizKeys`. These checks enforce database permissions; hiding a button alone does not secure data.
-- **Indexes:** the project has the 16 configured composite index shapes used for school/user filtering and timestamp sorting. Their queries were verified after the builds completed.
+- **Indexes:** the app now uses 12 configured composite index shapes for school/user filtering and timestamp sorting. Four retired drill indexes may remain in the cloud and are unused.
 - **Usage:** shows database activity and quotas. It is not evidence of a configured backup or guaranteed uptime.
 
 The Console owner may inspect private `quizKeys` through trusted IAM access. That does **not** mean a student can read them from the app. A real student-client read was tested and denied.
@@ -155,8 +154,6 @@ The Console owner may inspect private `quizKeys` through trusted IAM access. Tha
 | `quizzes` | Published questions without private keys | Assigned members read |
 | `quizKeys` | Private authoritative grading keys | Trusted backend only |
 | `quizResults` | Authoritative grades/history | Backend writes; owner/same-school staff read |
-| `drills` | Staff-created school schedules | School members read; staff create |
-| `drillResults` | Participation and reported elapsed time | Owner creates; authorized staff read |
 | `gameProgress` | Scores and badges | Owner creates; authorized staff read |
 | `sosRequests` | Sensitive school SOS/location requests | Owner and own-school administrators; teachers denied |
 | `riskInformation` | Configurable school map advisories | School members read; administrators manage |
@@ -170,7 +167,6 @@ The initial verified data snapshot on 14 November 2026 contained 8 modules, 8 qu
 | Read own-school alerts and schedules | Yes | Yes | Yes |
 | Save own permitted progress/results | Yes | Yes | Yes |
 | View other students' educational records in the same school | No | Yes | Yes |
-| Create school drill schedules | No | Yes | Yes |
 | Publish/edit/delete school alerts | No | No | Yes |
 | View another person's SOS location | No | No | Own-school only |
 | Assign student/teacher school membership | No | No | Through the trusted backend |
@@ -239,7 +235,7 @@ Queries filter by school/user, sort by server timestamps and cap live feeds at 1
 
 ## 10. Limitations and future enhancements
 
-- Game scores, drill duration and reading completion are self-reported; the app does not verify a person's physical safety.
+- Game scores and reading completion are self-reported; the app does not verify a person's physical safety.
 - The school SOS inbox is not emergency dispatch and does not guarantee a response.
 - Static district references do not provide live hazard, weather or IoT monitoring.
 - Browser speech, geolocation permissions and available voices depend on the device.
@@ -266,3 +262,7 @@ docs/                     Architecture, audit, schema, reports and teacher guide
 [Assignment checklist](docs/REQUIREMENTS.md) · [Project report](docs/PROJECT_REPORT.md) · [Architecture](docs/CLOUD_ARCHITECTURE.md) · [Security](docs/SECURITY.md) · [Baseline audit](docs/AUDIT.md) · [Teacher guide](docs/TEACHER_WALKTHROUGH.md)
 
 Developed by Team RakshakApp. The historical README is retained for provenance; its old integration claims are superseded by this current implementation description.
+
+## Current release — 20 November 2026
+
+Virtual drills have been removed from routes, navigation, dashboards, reports, translations and client database permissions. Retired drill records, if present, are inaccessible to app clients. The app continues to support modules, quizzes, games, school alerts, map advisories and private SOS requests. Two school administrators have been provisioned through trusted Firebase Admin tooling; sign out and sign back in after a role change.

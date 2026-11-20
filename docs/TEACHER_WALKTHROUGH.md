@@ -2,7 +2,7 @@
 
 ## Start with this short explanation
 
-“RakshakApp is an Education-domain disaster preparedness application for schools. Students learn safety through multilingual modules, quizzes, games and practice drills. Vercel hosts the website and trusted backend. Firebase Authentication handles login, while Cloud Firestore stores progress, results and school alerts. Signed roles and school identifiers control access. When an administrator sends an alert, Firestore updates the student's screen in real time. Quiz grading runs on the server, and the result stays saved after a refresh.”
+“RakshakApp is an Education-domain disaster preparedness application for schools. Students learn safety through multilingual modules, quizzes and games. Vercel hosts the website and trusted backend. Firebase Authentication handles login, while Cloud Firestore stores progress, results and school alerts. Signed roles and school identifiers control access. When an administrator sends an alert, Firestore updates the student's screen in real time. Quiz grading runs on the server, and the result stays saved after a refresh.”
 
 Open the live application: https://rakshakapp-cloud.vercel.app/
 Open Firebase Console: https://console.firebase.google.com/project/rakshakapp-cloud/overview
@@ -42,7 +42,7 @@ Open Databases & Storage → Firestore → `(default)` database → **Data**.
 
 Say: “Firestore uses collections, documents and fields. A collection is a group of records; a document is one record; fields hold its values.”
 
-Collections with zero documents may not appear in the Data tab. For example, `drills` or `sosRequests` can appear only after the relevant feature saves its first record. Do not create fake records just to make every collection name visible.
+Collections with zero documents may not appear in the Data tab. For example, `gameProgress` or `sosRequests` can appear only after the relevant feature saves its first record. Do not create fake records just to make every collection name visible.
 
 Private `quizKeys` are grading data. A Console owner can see them through administrative IAM access; a student app client is denied access by Security Rules. Showing a key in the owner Console is not a test of student permissions.
 
@@ -119,7 +119,7 @@ The browser cannot create administrator privileges. Initial administrator provis
 | Is it always available? | Managed providers support the design, but outages, quotas and network conditions remain; no guaranteed uptime or configured backup is claimed. |
 | Is the chatbot generative AI? | No; the current guide uses local multilingual safety guidelines and browser voice APIs. |
 | Does SOS call an ambulance? | No. It records a private school request; external emergency dispatch is not integrated. |
-| Are game/drill results authoritative? | They are self-reported educational practice. Module quiz grading is server-authoritative. |
+| Are game results authoritative? | They are self-reported educational practice. Module quiz grading is server-authoritative. |
 | What is future scope? | AI personalization, AR drills, IoT sensors, mobile apps and stronger operations/reporting. |
 
 ## Assignment evidence

@@ -37,7 +37,6 @@ export default function Dashboard() {
   const { t } = useTranslation()
   const { user, logout, schoolId } = useAuth()
   const { rows: games } = useCloud("gameProgress", true)
-  const { rows: drills } = useCloud("drillResults", true)
   const { completedModules } = useProgress()
   const { toast } = useToast()
 
@@ -51,7 +50,6 @@ export default function Dashboard() {
     level: t("dashboard.level"),
     points: games.reduce((sum, r) => sum + r.score, 0),
     badges: games.filter(r => r.badge === "safety-star").length,
-    completedDrills: drills.length,
     learningProgress: Math.round(completedModules.length * 100 / disasters.length)
   }
 
@@ -168,7 +166,7 @@ export default function Dashboard() {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card className="glass-card hover-glow animate-slide-up-1">
                 <CardContent className="p-6 text-center">
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-primary rounded-xl mb-4">
@@ -177,18 +175,6 @@ export default function Dashboard() {
                   <div className="text-2xl font-bold mb-1">{userStats.badges}</div>
                   <p className="text-sm text-muted-foreground">
                     {t("dashboard.badgesEarned")}
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="glass-card hover-glow animate-slide-up-2">
-                <CardContent className="p-6 text-center">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-secondary rounded-xl mb-4">
-                    <Shield className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="text-2xl font-bold mb-1">{userStats.completedDrills}</div>
-                  <p className="text-sm text-muted-foreground">
-                    {t("dashboard.drillsCompleted")}
                   </p>
                 </CardContent>
               </Card>

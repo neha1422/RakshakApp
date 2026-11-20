@@ -8,3 +8,5 @@ dist/
 .vercel/
 *service-account*.json
 *serviceAccount*.json
+
+.DS_Store

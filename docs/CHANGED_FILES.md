@@ -33,11 +33,6 @@ Branch: `feat/cloud-full-stack`. Local changes only; no commit, push, merge or d
 - `frontend/src/components/ProtectedRoute.tsx`
 - `frontend/src/components/QuizHistory.tsx`
 - `frontend/src/components/SchoolAdminTools.tsx`
-- `frontend/src/components/drills/DrillContext.jsx`
-- `frontend/src/components/drills/LatestDrill.jsx`
-- `frontend/src/components/drills/StudentDrillDashboard.jsx`
-- `frontend/src/components/drills/TeacherDashboard.jsx`
-- `frontend/src/components/drills/drills.css`
 - `frontend/src/components/sidebar.tsx`
 - `frontend/src/context/AuthContext.tsx`
 - `frontend/src/game/main.js`
@@ -49,7 +44,6 @@ Branch: `feat/cloud-full-stack`. Local changes only; no commit, push, merge or d
 - `frontend/src/pages/AdminDashboard.tsx`
 - `frontend/src/pages/Compliance.tsx`
 - `frontend/src/pages/Dashboard.tsx`
-- `frontend/src/pages/Drills.jsx`
 - `frontend/src/pages/GamePage.tsx`
 - `frontend/src/pages/MassAlertHistory.tsx`
 - `frontend/src/pages/MassAlerts.tsx`

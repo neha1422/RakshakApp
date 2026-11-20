@@ -3,7 +3,6 @@ import { motion } from "framer-motion"
 import { 
   Map, 
   Gamepad2, 
-  Shield, 
   Zap, 
   Globe, 
   Users,
@@ -36,7 +35,7 @@ export function FeaturesSection() {
         </motion.div>
 
         {/* Main Features */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           
           {/* Feature 1 */}
           <motion.div 
@@ -78,25 +77,6 @@ export function FeaturesSection() {
             </ul>
           </motion.div>
 
-          {/* Feature 3 */}
-          <motion.div 
-            className="glass-card p-8 rounded-3xl hover-glow"
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <div className="w-16 h-16 bg-gradient-success rounded-2xl flex items-center justify-center mb-6">
-              <Shield className="h-8 w-8 text-white" />
-            </div>
-            <h3 className="text-2xl font-bold mb-4">{t("features.feature3.title")}</h3>
-            <p className="text-muted-foreground mb-4">{t("features.feature3.desc")}</p>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• {t("features.feature3.bullet1")}</li>
-              <li>• {t("features.feature3.bullet2")}</li>
-              <li>• {t("features.feature3.bullet3")}</li>
-            </ul>
-          </motion.div>
         </div>
 
         {/* Emergency Tools */}

@@ -61,7 +61,7 @@ GitHub pushes do not currently auto-deploy this project. This deployment used th
 
 ## Database rules, indexes and catalog maintenance
 
-The current rules are published, all sixteen query index shapes are ready, and eight module/quiz/key sets are seeded. Do not repeat these writes just to demonstrate the database.
+The current rules are published, the twelve active query index shapes are ready (four retired drill indexes may remain unused), and eight module/quiz/key sets are seeded. Do not repeat these writes just to demonstrate the database.
 
 For future reviewed rules/index changes, use an appropriately authorized owner CLI session or approved SDK setup operation. From the repository root, an owner CLI workflow is:
 

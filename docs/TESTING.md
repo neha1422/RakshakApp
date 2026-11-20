@@ -23,7 +23,7 @@ The critical jsPDF advisory was addressed by updating the existing PDF dependenc
 - ProtectedRoute: unauthenticated redirect, loading, student denial, permitted teacher and missing-school denial.
 - Backend policy/API: required valid session and membership, private-key grading, malformed answers, authoritative score persistence, attempt retry, self/escalated/cross-school role denial.
 - Cloud hook: school/user query constraints, listener result propagation and cleanup on membership change/unmount.
-- Emulator: administrator alert CRUD, unauthenticated/cross-school denial, forged-grade and role-write denial, private key denial, persisted progress, other-student privacy, realtime cross-client alert delivery, backend-created results readable across authorized clients, staff school query isolation, SOS privacy, staff-only schedules, one-per-student drill participation, score bounds and profile membership immutability.
+- Emulator: administrator alert CRUD, unauthenticated/cross-school denial, forged-grade and role-write denial, private key denial, persisted progress, other-student privacy, realtime cross-client alert delivery, backend-created results readable across authorized clients, staff school query isolation, SOS privacy, denial of retired drill collection access, score bounds and profile membership immutability.
 
 An early realtime test timed out because it wrote before establishing listener readiness; the test now waits for its initial snapshot, then creates the alert and observes the changed snapshot. Final runs pass. This does not constitute a production browser demonstration.
 

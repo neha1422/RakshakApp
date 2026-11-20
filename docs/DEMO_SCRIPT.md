@@ -7,7 +7,7 @@ Prerequisites: approved deployment/configuration, seeded catalog, assigned stude
 3. Edit the alert in history and observe the changed message in B. Delete only the newly created demo alert and observe its removal. Avoid deleting pre-existing records.
 4. In B open a learning module, switch EN/HI/PA, read and complete its quiz. Questions load from published Firestore documents; submitted answer indexes go to the authenticated backend. Show saved authoritative score and learning completion.
 5. Refresh B; show quiz history and persisted progress. Open a teacher/admin dashboard and observe the new quiz attempt and updated recent-record average automatically. Explain that charts show latest 100 school records, not a lifetime institutional score.
-6. Staff schedules an earthquake/fire/flood drill. Student opens the latest drill, runs existing instructions, finishes and saves participation. Staff sees result and reported elapsed time. Explain self-reporting limits.
+6. Open the learning modules and game; show saved learning progress and game results.
 7. Finish the existing game. Refresh Overview and show persisted score/badge. This score is self-reported, unlike server-graded module quizzes.
 8. Open Punjab map and demonstrate static district filters plus an administrator-added school advisory. Preserve existing district geography/reference data.
 9. Demonstrate the guideline chatbot and multilingual browser speech assistant. They are local guideline lookup/browser speech features; no external LLM integration is claimed.

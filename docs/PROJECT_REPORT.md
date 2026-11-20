@@ -4,7 +4,7 @@
 
 Schools need repeatable disaster education, accessible safety guidance and visibility into student participation. Printed instructions and occasional drills provide limited progress tracking and do not synchronize school advisories across devices. RakshakApp addresses this education-domain problem through the existing Punjab-focused disaster curriculum, interactive learning, games and school administration.
 
-Target users are students learning disaster safety, teachers monitoring practice and school administrators publishing advisories and managing school membership. The objective is to extend the existing interface with cloud persistence and secure multi-school access while preserving its navigation, visual design, map, translations, game and drill instructions.
+Target users are students learning disaster safety, teachers monitoring practice and school administrators publishing advisories and managing school membership. The objective is to extend the existing interface with cloud persistence and secure multi-school access while preserving its navigation, visual design, map, translations, game.
 
 ## Existing system limitations
 
@@ -18,13 +18,13 @@ The architecture diagram and service boundaries are in [CLOUD_ARCHITECTURE.md](C
 
 ## Database design
 
-Collections cover users, schools, alerts, learningModules, learningProgress, quizzes, quizResults, drills, drillResults, gameProgress and sosRequests. Additional private quizKeys hold grading answers; riskInformation holds school-specific map advisories. User and school identifiers isolate records and server timestamps support ordered queries. Deterministic progress/result identifiers and transactional attempt writes avoid duplicate submissions. DATABASE_SCHEMA.md documents fields, access, indexes and query patterns.
+Collections cover users, schools, alerts, learningModules, learningProgress, quizzes, quizResults, gameProgress and sosRequests. Additional private quizKeys hold grading answers; riskInformation holds school-specific map advisories. User and school identifiers isolate records and server timestamps support ordered queries. Deterministic progress/result identifiers and transactional attempt writes avoid duplicate submissions. DATABASE_SCHEMA.md documents fields, access, indexes and query patterns.
 
 ## Frontend and backend
 
 Existing learning pages retain their multilingual reading and quiz layout. Questions load from published Firestore quizzes; the backend validates submitted indexes against private keys, calculates scores and atomically saves results/completion. Results remain after refresh and appear in student history and authorized staff statistics. Existing game completion now saves a score/badge; this is labeled self-reported rather than secure assessment.
 
-School alerts support actual create/read/update/delete operations. Existing admin history and charts use cloud data. Shared drill schedules and private participation replace disconnected mock timelines while preserving the virtual runner. The Punjab map keeps static district reference data and adds configurable school advisories. The SOS modal saves a private school request, provides record deletion and shows truthful school status. It does not dispatch emergency services.
+School alerts support actual create/read/update/delete operations. Existing admin history and charts use cloud data. The Punjab map keeps static district reference data and adds configurable school advisories. The SOS modal saves a private school request, provides record deletion and shows truthful school status. It does not dispatch emergency services.
 
 The multilingual guide bot remains local guideline lookup, and voice recognition/synthesis uses browser capabilities. No external LLM, Whisper, Twilio messaging or IoT feed is claimed. Future private integrations must use a trusted backend.
 
@@ -44,7 +44,7 @@ Vercel and Firebase provide managed infrastructure, but the Firestore location i
 
 ## Security considerations
 
-Least-privilege rules prevent cross-school private reads, forged quiz result writes, public answer-key reads and self-assigned membership. Sensitive locations are limited to their owner and school administrators; teachers are denied. Secrets remain backend-only and environment examples contain no credentials. Token lifecycle, rate limiting, App Check, consent and retention limitations are documented in SECURITY.md. Authentication does not prove that self-reported game scores, drill duration or physical safety are true.
+Least-privilege rules prevent cross-school private reads, forged quiz result writes, public answer-key reads and self-assigned membership. Sensitive locations are limited to their owner and school administrators; teachers are denied. Secrets remain backend-only and environment examples contain no credentials. Token lifecycle, rate limiting, App Check, consent and retention limitations are documented in SECURITY.md. Authentication does not prove that self-reported game scores or physical safety are true.
 
 ## Testing and deployment
 
@@ -58,7 +58,7 @@ DEPLOYMENT.md describes the existing Vercel project, public Firebase configurati
 
 - Core production cloud configuration and live backend/data-flow checks are complete. Broader device, accessibility, load, recovery and institutional acceptance testing remain future verification work.
 - Teacher/admin totals are a recent bounded sample, not a certified institutional readiness measure.
-- Game scores, reading completion and drill duration are self-reported; there is no anti-cheat or physical safety verification.
+- Game scores and reading completion are self-reported; there is no anti-cheat or physical safety verification.
 - School SOS is not monitored emergency dispatch; no guaranteed response, SMS or external contact integration exists.
 - Browser speech/geolocation permissions and available voices vary by device. Tiles require a network connection.
 - No audit-log pipeline, automated retention, backup, App Check enforcement or application rate limiting is configured.
